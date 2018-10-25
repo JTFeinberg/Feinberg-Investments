@@ -40,6 +40,9 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
+  },
+  balance: {
+    type: Sequelize.STRING
   }
 })
 
@@ -77,5 +80,14 @@ const setSaltAndPassword = user => {
   }
 }
 
-User.beforeCreate(setSaltAndPassword)
+const initializeBalance = user => {
+  user.balance = 5000.00
+}
+
+const onSignUp = user => {
+  setSaltAndPassword(user)
+  initializeBalance(user)
+}
+
+User.beforeCreate(onSignUp)
 User.beforeUpdate(setSaltAndPassword)
