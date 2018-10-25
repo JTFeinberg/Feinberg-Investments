@@ -14,7 +14,7 @@ const User = db.define('user', {
   fullName: {
     type: Sequelize.VIRTUAL,
     get() {
-      return (`${this.getDataValue('firstName')} ${this.getDataValue('lastName')}`)
+      return `${this.getDataValue('firstName')} ${this.getDataValue('lastName')}`
     }
   },
   email: {
@@ -81,7 +81,7 @@ const setSaltAndPassword = user => {
 }
 
 const initializeBalance = user => {
-  user.balance = 5000.00
+  user.balance = 5000.0
 }
 
 const onSignUp = user => {
