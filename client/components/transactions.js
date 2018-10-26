@@ -1,11 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+
 /**
  * COMPONENT
  */
 const Transactions = ({transactions}) => {
-
   return transactions.length ? (
     <div>
       <h3>Transaction History</h3>
