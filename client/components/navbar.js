@@ -5,32 +5,32 @@ import {Link} from 'react-router-dom'
 import {logout, fetchAllSymbolsThunk} from '../store'
 
 const Navbar = ({handleClick, isLoggedIn, symbolsLoaded, loadAllSymbols}) => {
-  if(symbolsLoaded) loadAllSymbols()
+  if (symbolsLoaded) loadAllSymbols()
   return (
-  <div>
-    <h1>Feinberg Investments</h1>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <Link to="/user/transaction_history">Transactions</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-)
-      }
+    <div>
+      <h1>Feinberg Investments</h1>
+      <nav>
+        {isLoggedIn ? (
+          <div>
+            {/* The navbar will show these links after you log in */}
+            <Link to="/home">Home</Link>
+            <Link to="/user/transaction_history">Transactions</Link>
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        ) : (
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
+        )}
+      </nav>
+      <hr />
+    </div>
+  )
+}
 
 /**
  * CONTAINER
