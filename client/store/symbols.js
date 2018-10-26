@@ -30,7 +30,7 @@ export const fetchAllSymbolsThunk = () => async dispatch => {
 /**
  * REDUCER
  */
-export default function (state = {}, action) {
+export default function (state = [], action) {
   switch (action.type) {
     case GET_SYMBOLS:
       return action.payload

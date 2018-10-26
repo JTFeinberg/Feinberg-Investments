@@ -2,9 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, fetchAllSymbolsThunk} from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({handleClick, isLoggedIn, symbolsLoaded, loadAllSymbols}) => {
+  if(symbolsLoaded) loadAllSymbols()
+  return (
   <div>
     <h1>Feinberg Investments</h1>
     <nav>
@@ -28,13 +30,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <hr />
   </div>
 )
+      }
 
 /**
  * CONTAINER
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    symbolsLoaded: !state.symbols.length
   }
 }
 
@@ -42,7 +46,8 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
-    }
+    },
+    loadAllSymbols: () => dispatch(fetchAllSymbolsThunk())
   }
 }
 
