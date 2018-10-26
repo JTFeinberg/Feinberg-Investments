@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import axios from 'axios'
 
 class TradeForm extends Component {
   constructor(props) {
@@ -16,13 +17,35 @@ class TradeForm extends Component {
       this.setState({[name]: value})
   }
 
+  handleSubmit = (evt) => {
+      evt.preventDefault()
+      const {
+        action,
+        stockSymbol,
+        numOfShares,
+        price
+      } = this.state
+      axios.post('api/user/transaction', {
+        action,
+        stockSymbol,
+        numOfShares,
+        price,
+        userId: this.props.user.id
+      })
+      .then(res => res.data)
+      .then(completedTransaction => {
+
+          console.log(completedTransaction)
+      })
+  }
+
   render() {
     let {allsymbols, user} = this.props
     let {symbolInput, sharesInput, action} = this.state
     return (
       <div>
         <h1>Cash on Hand ${user.balance}</h1>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input
             name="symbolInput"
             value={symbolInput}
