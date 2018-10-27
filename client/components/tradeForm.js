@@ -6,8 +6,8 @@ class TradeForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      symbolInput: '',
-      sharesInput: '',
+      stockSymbol: '',
+      numOfShares: '',
       action: 'BUY'
     }
   }
@@ -25,11 +25,11 @@ class TradeForm extends Component {
         numOfShares,
         price
       } = this.state
-      axios.post('api/user/transaction', {
+      axios.post('/api/user/transaction', {
         action,
         stockSymbol,
         numOfShares,
-        price,
+        price: 100,
         userId: this.props.user.id
       })
       .then(res => res.data)
@@ -41,21 +41,21 @@ class TradeForm extends Component {
 
   render() {
     let {allsymbols, user} = this.props
-    let {symbolInput, sharesInput, action} = this.state
+    let {stockSymbol, numOfShares, action} = this.state
     return (
       <div>
         <h1>Cash on Hand ${user.balance}</h1>
         <form onSubmit={this.handleSubmit}>
           <input
-            name="symbolInput"
-            value={symbolInput}
+            name="stockSymbol"
+            value={stockSymbol}
             onChange={this.handleChange}
             maxLength="6"
             placeholder="Enter Stock Symbol Here"
           />
           <input
-            name="sharesInput"
-            value={sharesInput}
+            name="numOfShares"
+            value={numOfShares}
             onChange={this.handleChange}
             maxLength="10"
             placeholder="Qty of Shares"
