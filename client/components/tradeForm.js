@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
+import {IEX_API} from '../'
 
 class TradeForm extends Component {
   constructor(props) {
@@ -8,13 +9,25 @@ class TradeForm extends Component {
     this.state = {
       stockSymbol: '',
       numOfShares: '',
-      action: 'BUY'
+      action: 'BUY',
+      quote: {},
+      isValidStock: ''
     }
   }
 
-  handleChange = ({target}) => {
+  handleChange = async ({target}) => {
       let {name, value} = target;
+      console.log(value)
       this.setState({[name]: value})
+      if (name === 'stockSymbol' && value.length){
+          let stockInfo = await axios.get(`${IEX_API}/stock/market/batch?symbols=${value}&types=quote`)
+          if (stockInfo.data[value.toUpperCase()]) {
+            this.setState({quote: stockInfo.data[value.toUpperCase()].quote, isValidStock: ''})
+          } else {
+            this.setState({quote: {}, isValidStock: 'Please Enter a Valid Stock Symbol'})
+          }
+      }
+     
   }
 
   handleSubmit = (evt) => {
