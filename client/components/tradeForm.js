@@ -12,7 +12,7 @@ class TradeForm extends Component {
       numOfShares: '',
       action: 'BUY',
       quote: {},
-      isValidStock: ''
+      isValidStock: false
     }
   }
 
@@ -22,9 +22,9 @@ class TradeForm extends Component {
       if (name === 'stockSymbol' && value.length){
           let stockInfo = await axios.get(`${IEX_API}/stock/market/batch?symbols=${value}&types=quote`)
           if (stockInfo.data[value.toUpperCase()]) {
-            this.setState({quote: stockInfo.data[value.toUpperCase()].quote, isValidStock: ''})
+            this.setState({quote: stockInfo.data[value.toUpperCase()].quote, isValidStock: true})
           } else {
-            this.setState({quote: {}, isValidStock: 'Please Enter a Valid Stock Symbol'})
+            this.setState({quote: {}, isValidStock: false})
           }
       }
      
@@ -32,7 +32,7 @@ class TradeForm extends Component {
 
   render() {
     let {allsymbols, user, makeTrade} = this.props
-    let {stockSymbol, numOfShares, action} = this.state
+    let {stockSymbol, numOfShares, action, isValidStock} = this.state
     return (
       <div>
         <h1>Cash on Hand ${user.balance}</h1>
@@ -55,8 +55,9 @@ class TradeForm extends Component {
             <option value="BUY">BUY</option>
             <option value="SELL">SELL</option>
           </select>
-          <input type="submit" value="Submit"/>
+          <input type="submit" value="Submit" disabled={!isValidStock} />
         </form>
+    {!isValidStock ? (<div>Please Enter a Valid Stock Symbol</div>) : null}
       </div>
     )
   }
