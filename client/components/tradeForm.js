@@ -12,31 +12,52 @@ class TradeForm extends Component {
       numOfShares: '',
       action: 'BUY',
       quote: {},
-      isValidStock: ''
+      isValidStock: false,
+      isStockDirty: false
     }
   }
 
   handleChange = async ({target}) => {
-      let {name, value} = target;
-      this.setState({[name]: value.toUpperCase()})
-      if (name === 'stockSymbol' && value.length){
-          let stockInfo = await axios.get(`${IEX_API}/stock/market/batch?symbols=${value}&types=quote`)
-          if (stockInfo.data[value.toUpperCase()]) {
-            this.setState({quote: stockInfo.data[value.toUpperCase()].quote, isValidStock: ''})
-          } else {
-            this.setState({quote: {}, isValidStock: 'Please Enter a Valid Stock Symbol'})
-          }
+    let {name, value} = target
+    this.setState({[name]: value.toUpperCase()})
+    if (name === 'stockSymbol' && value.length) {
+      if (this.props.allSymbols.has(value.toUpperCase())) {
+        let stockInfo = await axios.get(
+          `${IEX_API}/stock/market/batch?symbols=${value}&types=quote`
+        )
+        this.setState({
+          quote: stockInfo.data[value.toUpperCase()].quote,
+          isValidStock: true
+        })
+      } else {
+        this.setState({quote: {}, isValidStock: false})
       }
-     
+      this.setState({isStockDirty: true})
+    }
+  }
+
+  isInteger = ({target}) => {
+    if (target.validity.patternMismatch) {
+      target.setCustomValidity('Please enter a whole number')
+    } else {
+      target.setCustomValidity('')
+    }
   }
 
   render() {
-    let {allsymbols, user, makeTrade} = this.props
-    let {stockSymbol, numOfShares, action} = this.state
+    let {user, makeTrade} = this.props
+    let {
+      stockSymbol,
+      numOfShares,
+      action,
+      isValidStock,
+      isStockDirty,
+      quote
+    } = this.state
     return (
       <div>
         <h1>Cash on Hand ${user.balance}</h1>
-        <form onSubmit={(evt) => makeTrade(evt, this.state, user.id)}>
+        <form onSubmit={evt => makeTrade(evt, this.state, user.id)}>
           <input
             name="stockSymbol"
             value={stockSymbol}
@@ -48,15 +69,29 @@ class TradeForm extends Component {
             name="numOfShares"
             value={numOfShares}
             onChange={this.handleChange}
-            maxLength="10"
+            type="text"
+            pattern="\d*"
+            onInvalid={this.isInteger}
+            onInput={this.isInteger}
             placeholder="Qty of Shares"
           />
           <select name="action" value={action} onChange={this.handleChange}>
             <option value="BUY">BUY</option>
             <option value="SELL">SELL</option>
           </select>
-          <input type="submit" value="Submit"/>
+          <input
+            type="submit"
+            value="Submit"
+            disabled={
+              !isValidStock ||
+              !stockSymbol.length ||
+              user.balance < quote.latestPrice * numOfShares
+            }
+          />
         </form>
+        {!isValidStock && isStockDirty ? (
+          <div>Please Enter a Valid Stock Symbol</div>
+        ) : null}
       </div>
     )
   }
@@ -73,12 +108,12 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-    return {
-      makeTrade(evt, formInputs, userId) {
-          evt.preventDefault()
-          dispatch(postTradedStockThunk(formInputs, userId))
-      }
+  return {
+    makeTrade(evt, formInputs, userId) {
+      evt.preventDefault()
+      dispatch(postTradedStockThunk(formInputs, userId))
     }
   }
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(TradeForm)
