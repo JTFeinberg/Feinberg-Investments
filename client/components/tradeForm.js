@@ -12,7 +12,8 @@ class TradeForm extends Component {
       numOfShares: '',
       action: 'BUY',
       quote: {},
-      isValidStock: false
+      isValidStock: false,
+      isStockDirty: false
     }
   }
 
@@ -26,13 +27,14 @@ class TradeForm extends Component {
           } else {
             this.setState({quote: {}, isValidStock: false})
           }
+          this.setState({isStockDirty: true})
       }
      
   }
 
   render() {
     let {allsymbols, user, makeTrade} = this.props
-    let {stockSymbol, numOfShares, action, isValidStock} = this.state
+    let {stockSymbol, numOfShares, action, isValidStock, isStockDirty} = this.state
     return (
       <div>
         <h1>Cash on Hand ${user.balance}</h1>
@@ -55,9 +57,9 @@ class TradeForm extends Component {
             <option value="BUY">BUY</option>
             <option value="SELL">SELL</option>
           </select>
-          <input type="submit" value="Submit" disabled={!isValidStock} />
+          <input type="submit" value="Submit" disabled={!isValidStock || !stockSymbol.length} />
         </form>
-    {!isValidStock ? (<div>Please Enter a Valid Stock Symbol</div>) : null}
+    {!isValidStock && isStockDirty ? (<div>Please Enter a Valid Stock Symbol</div>) : null}
       </div>
     )
   }
