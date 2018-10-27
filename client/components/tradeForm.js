@@ -36,13 +36,13 @@ class TradeForm extends Component {
         action,
         stockSymbol,
         numOfShares,
-        price
+        quote
       } = this.state
       axios.post('/api/user/transaction', {
         action,
         stockSymbol,
         numOfShares,
-        price: 100,
+        price: quote.latestPrice,
         userId: this.props.user.id
       })
       .then(res => res.data)

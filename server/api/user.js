@@ -14,7 +14,6 @@ router.post('/transaction', async (req, res, next) => {
       })
       const user = await User.findById(userId)
       newTransaction.setUser(user)
-      console.log(newTransaction)
       res.json(newTransaction)
     } catch (err) {
       next(err)
