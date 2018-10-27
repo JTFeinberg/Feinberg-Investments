@@ -1,61 +1,52 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
+import {IEX_API} from '../'
+import {postTradedStockThunk} from '../store'
 
 class TradeForm extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      symbolInput: '',
-      sharesInput: '',
-      action: 'BUY'
+      stockSymbol: '',
+      numOfShares: '',
+      action: 'BUY',
+      quote: {},
+      isValidStock: ''
     }
   }
 
-  handleChange = ({target}) => {
+  handleChange = async ({target}) => {
       let {name, value} = target;
-      this.setState({[name]: value})
-  }
-
-  handleSubmit = (evt) => {
-      evt.preventDefault()
-      const {
-        action,
-        stockSymbol,
-        numOfShares,
-        price
-      } = this.state
-      axios.post('api/user/transaction', {
-        action,
-        stockSymbol,
-        numOfShares,
-        price,
-        userId: this.props.user.id
-      })
-      .then(res => res.data)
-      .then(completedTransaction => {
-
-          console.log(completedTransaction)
-      })
+      this.setState({[name]: value.toUpperCase()})
+      if (name === 'stockSymbol' && value.length){
+          let stockInfo = await axios.get(`${IEX_API}/stock/market/batch?symbols=${value}&types=quote`)
+          if (stockInfo.data[value.toUpperCase()]) {
+            this.setState({quote: stockInfo.data[value.toUpperCase()].quote, isValidStock: ''})
+          } else {
+            this.setState({quote: {}, isValidStock: 'Please Enter a Valid Stock Symbol'})
+          }
+      }
+     
   }
 
   render() {
-    let {allsymbols, user} = this.props
-    let {symbolInput, sharesInput, action} = this.state
+    let {allsymbols, user, makeTrade} = this.props
+    let {stockSymbol, numOfShares, action} = this.state
     return (
       <div>
         <h1>Cash on Hand ${user.balance}</h1>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(evt) => makeTrade(evt, this.state, user.id)}>
           <input
-            name="symbolInput"
-            value={symbolInput}
+            name="stockSymbol"
+            value={stockSymbol}
             onChange={this.handleChange}
             maxLength="6"
             placeholder="Enter Stock Symbol Here"
           />
           <input
-            name="sharesInput"
-            value={sharesInput}
+            name="numOfShares"
+            value={numOfShares}
             onChange={this.handleChange}
             maxLength="10"
             placeholder="Qty of Shares"
@@ -74,11 +65,20 @@ class TradeForm extends Component {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapStateToProps = state => {
   return {
     allSymbols: state.symbols,
     user: state.user
   }
 }
 
-export default connect(mapState)(TradeForm)
+const mapDispatchToProps = dispatch => {
+    return {
+      makeTrade(evt, formInputs, userId) {
+          evt.preventDefault()
+          dispatch(postTradedStockThunk(formInputs, userId))
+      }
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(TradeForm)
