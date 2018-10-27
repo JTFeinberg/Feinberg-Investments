@@ -16,7 +16,7 @@ const tradeStock = stock => ({type: TRADE_STOCK, payload: stock})
  * THUNK CREATORS
  */
 
-export const fetchTradedStockThunk = (formInputs, userId) => async dispatch => {
+export const postTradedStockThunk = (formInputs, userId) => async dispatch => {
   let res
   const {
     action,
@@ -41,7 +41,7 @@ export const fetchTradedStockThunk = (formInputs, userId) => async dispatch => {
 /**
  * REDUCER
  */
-export default function (state = [], action) {
+export default function (state = {}, action) {
   switch (action.type) {
     case TRADE_STOCK:
       return action.payload
