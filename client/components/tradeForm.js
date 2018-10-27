@@ -31,6 +31,15 @@ class TradeForm extends Component {
       }
   }
 
+  isInteger = ({target}) => {
+    if(target.validity.patternMismatch){  
+        target.setCustomValidity("Please enter a whole number");  
+    }  
+    else {  
+        target.setCustomValidity("");  
+    }                 
+  }
+
   render() {
     let {allsymbols, user, makeTrade} = this.props
     let {stockSymbol, numOfShares, action, isValidStock, isStockDirty, quote, canAfford} = this.state
@@ -49,7 +58,9 @@ class TradeForm extends Component {
             name="numOfShares"
             value={numOfShares}
             onChange={this.handleChange}
-            maxLength="10"
+            type="text" pattern="\d*"
+            onInvalid={this.isInteger}
+            onInput={this.isInteger}
             placeholder="Qty of Shares"
           />
           <select name="action" value={action} onChange={this.handleChange}>
