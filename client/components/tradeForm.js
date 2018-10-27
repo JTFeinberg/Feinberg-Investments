@@ -87,11 +87,11 @@ class TradeForm extends Component {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapStateToProps = state => {
   return {
     allSymbols: state.symbols,
     user: state.user
   }
 }
 
-export default connect(mapState)(TradeForm)
+export default connect(mapStateToProps)(TradeForm)
