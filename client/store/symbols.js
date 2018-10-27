@@ -19,9 +19,13 @@ const getAllSymbols = symbols => ({type: GET_SYMBOLS, payload: symbols})
 
 export const fetchAllSymbolsThunk = () => async dispatch => {
   let res
+  let symbols = new Set()
   try {
       res = await axios.get(`${IEX_API}/ref-data/symbols`)
-      dispatch(getAllSymbols(res.data))
+      res.data.forEach(company => {
+        symbols.add(company.symbol)
+      });
+      dispatch(getAllSymbols(symbols))
     } catch (err) {
         console.error(err)
     }
