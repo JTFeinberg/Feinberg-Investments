@@ -34,4 +34,11 @@ form div {
   background-color: white;
   min-height: 300px;
   border: 1px solid #DBDBDB;
+  margin: 0 auto;
+}
+
+@media (min-width: 800px) {
+  .trade-form-container {
+    max-width: 800px;
+  }
 }
