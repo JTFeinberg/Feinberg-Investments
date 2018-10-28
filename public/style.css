@@ -1,3 +1,9 @@
+/* Global Styles
+--------------------------------*/
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: sans-serif;
   background-color: #F8F9F4;
@@ -19,4 +25,13 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+/* Trade Form
+--------------------------------*/
+.trade-form-container {
+  text-align: center;
+  background-color: white;
+  min-height: 300px;
+  border: 1px solid #DBDBDB;
 }
