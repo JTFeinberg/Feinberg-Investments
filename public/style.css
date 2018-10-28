@@ -26,12 +26,16 @@ form div {
 
 /* Trade Form
 --------------------------------*/
-.nav-link-container {
+nav {
   text-align: center;
+  background-color: #568200;
+  color: white;
+}
+.nav-link-container {
   display: flex;
   justify-content: space-evenly;
 }
-nav a {
+.nav-link-container a {
   margin: .5em;
   font-weight: 700;
 }

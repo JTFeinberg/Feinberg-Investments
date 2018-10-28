@@ -8,8 +8,8 @@ const Navbar = ({handleClick, isLoggedIn, symbolsLoaded, loadAllSymbols}) => {
   if (symbolsLoaded) loadAllSymbols()
   return (
     <div>
-      <h1>Feinberg Investments</h1>
       <nav>
+      <h1>Feinberg Investments</h1>
         {isLoggedIn ? (
           <div className="nav-link-container">
             {/* The navbar will show these links after you log in */}
