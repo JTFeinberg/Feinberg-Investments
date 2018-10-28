@@ -17,15 +17,24 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
 
 form div {
   margin: 1em;
   display: inline-block;
 }
+
+/* Trade Form
+--------------------------------*/
+.nav-link-container {
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+}
+nav a {
+  margin: .5em;
+  font-weight: 700;
+}
+
 
 /* Trade Form
 --------------------------------*/
@@ -36,30 +45,25 @@ form div {
   border: 1px solid #DBDBDB;
   margin: 0 auto;
 }
-
 .trade-form-container form {
   width: 132px;
   margin: 0 auto;
 }
-
 .trade-form-container form input {
   height: 25px;
   margin: 5px 0;
   text-align: center;
 }
-
 .trade-form-container form select{
   position: relative;
   left: 28px;
 }
-
 #trade-submit {
   position: relative;
   top: 25px;
   right: 30px;
   width: 58px;
 }
-
 @media (min-width: 800px) {
   .trade-form-container {
     max-width: 800px;

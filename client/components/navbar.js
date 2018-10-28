@@ -11,7 +11,7 @@ const Navbar = ({handleClick, isLoggedIn, symbolsLoaded, loadAllSymbols}) => {
       <h1>Feinberg Investments</h1>
       <nav>
         {isLoggedIn ? (
-          <div>
+          <div className="nav-link-container">
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
             <Link to="/user/transaction_history">Transactions</Link>
@@ -21,7 +21,7 @@ const Navbar = ({handleClick, isLoggedIn, symbolsLoaded, loadAllSymbols}) => {
             </a>
           </div>
         ) : (
-          <div>
+          <div className="nav-link-container">
             {/* The navbar will show these links before you log in */}
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
