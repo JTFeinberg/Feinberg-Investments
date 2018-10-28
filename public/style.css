@@ -18,10 +18,13 @@ label {
   display: block;
 }
 
-
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+hr {
+  margin-top: 0;
 }
 
 /* Trade Form
@@ -42,6 +45,7 @@ nav h1 {
 .nav-link-container a {
   margin: .5em;
   font-weight: 700;
+  color: white;
 }
 
 
