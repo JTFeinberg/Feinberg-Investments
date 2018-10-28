@@ -7,6 +7,7 @@
 body {
   font-family: sans-serif;
   background-color: #F8F9F4;
+  margin: 0;
 }
 
 a {
@@ -17,15 +18,48 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
 form div {
   margin: 1em;
   display: inline-block;
 }
+
+
+/* Navbar
+--------------------------------*/
+nav {
+  padding-top: .5em;
+  text-align: center;
+  background-color: #568200;
+  color: white;
+}
+nav h1 {
+  margin-top: 0;
+  padding-top: 10px;
+}
+.nav-link-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+.nav-link-container a {
+  padding: .5em;
+  font-weight: 700;
+  color: white;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  box-shadow: 3px 3px 3px #336d00;
+}
+.nav-link-container a:hover{
+  background-color: #6EA500;
+}
+.nav-link-container a:active{
+  box-shadow: none;
+}
+hr {
+  margin-top: 0;
+  margin-bottom: 1.5em;
+}
+
 
 /* Trade Form
 --------------------------------*/
@@ -34,34 +68,30 @@ form div {
   background-color: white;
   min-height: 300px;
   border: 1px solid #DBDBDB;
-  margin: 0 auto;
+  margin: 0 5px;
 }
-
 .trade-form-container form {
   width: 132px;
   margin: 0 auto;
 }
-
 .trade-form-container form input {
   height: 25px;
   margin: 5px 0;
   text-align: center;
 }
-
 .trade-form-container form select{
   position: relative;
   left: 28px;
 }
-
 #trade-submit {
   position: relative;
   top: 25px;
   right: 30px;
   width: 58px;
 }
-
-@media (min-width: 800px) {
+@media (min-width: 805px) {
   .trade-form-container {
     max-width: 800px;
+    margin: 0 auto;
   }
 }
