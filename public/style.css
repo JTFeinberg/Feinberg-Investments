@@ -37,6 +37,13 @@ form div {
   margin: 0 auto;
 }
 
+.trade-form-container form {
+  width: 132px;
+  margin: 0 auto;
+}
+
+
+
 @media (min-width: 800px) {
   .trade-form-container {
     max-width: 800px;
