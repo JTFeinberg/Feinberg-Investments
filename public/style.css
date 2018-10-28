@@ -47,9 +47,13 @@ nav h1 {
   display: flex;
   flex-grow: 1;
   justify-content: center;
+  box-shadow: 3px 3px 3px #336d00;
 }
 .nav-link-container a:hover{
   background-color: #6EA500;
+}
+.nav-link-container a:active{
+  box-shadow: none;
 }
 hr {
   margin-top: 0;
