@@ -80,6 +80,7 @@ class TradeForm extends Component {
             <option value="SELL">SELL</option>
           </select>
           <input
+            id="trade-submit"
             type="submit"
             value="Submit"
             disabled={

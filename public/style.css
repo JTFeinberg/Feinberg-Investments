@@ -42,7 +42,23 @@ form div {
   margin: 0 auto;
 }
 
+.trade-form-container form input {
+  height: 25px;
+  margin: 5px 0;
+  text-align: center;
+}
 
+.trade-form-container form select{
+  position: relative;
+  left: 28px;
+}
+
+#trade-submit {
+  position: relative;
+  top: 25px;
+  right: 30px;
+  width: 58px;
+}
 
 @media (min-width: 800px) {
   .trade-form-container {
