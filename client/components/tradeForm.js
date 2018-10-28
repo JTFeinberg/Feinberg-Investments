@@ -55,7 +55,7 @@ class TradeForm extends Component {
       quote
     } = this.state
     return (
-      <div>
+      <div className="trade-form-container">
         <h1>Cash on Hand ${user.balance}</h1>
         <form onSubmit={evt => makeTrade(evt, this.state, user.id)}>
           <input
@@ -63,7 +63,7 @@ class TradeForm extends Component {
             value={stockSymbol}
             onChange={this.handleChange}
             maxLength="6"
-            placeholder="Enter Stock Symbol Here"
+            placeholder="Enter Stock Symbol"
           />
           <input
             name="numOfShares"
@@ -75,16 +75,18 @@ class TradeForm extends Component {
             onInput={this.isInteger}
             placeholder="Qty of Shares"
           />
-          <select name="action" value={action} onChange={this.handleChange}>
+          <select name="action" value={action} label="Action" onChange={this.handleChange}>
             <option value="BUY">BUY</option>
             <option value="SELL">SELL</option>
           </select>
           <input
+            id="trade-submit"
             type="submit"
             value="Submit"
             disabled={
               !isValidStock ||
               !stockSymbol.length ||
+              !numOfShares.length ||
               user.balance < quote.latestPrice * numOfShares
             }
           />

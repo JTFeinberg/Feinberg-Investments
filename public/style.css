@@ -1,5 +1,12 @@
+/* Global Styles
+--------------------------------*/
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: sans-serif;
+  background-color: #F8F9F4;
 }
 
 a {
@@ -18,4 +25,43 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+/* Trade Form
+--------------------------------*/
+.trade-form-container {
+  text-align: center;
+  background-color: white;
+  min-height: 300px;
+  border: 1px solid #DBDBDB;
+  margin: 0 auto;
+}
+
+.trade-form-container form {
+  width: 132px;
+  margin: 0 auto;
+}
+
+.trade-form-container form input {
+  height: 25px;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.trade-form-container form select{
+  position: relative;
+  left: 28px;
+}
+
+#trade-submit {
+  position: relative;
+  top: 25px;
+  right: 30px;
+  width: 58px;
+}
+
+@media (min-width: 800px) {
+  .trade-form-container {
+    max-width: 800px;
+  }
 }
