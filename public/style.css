@@ -44,7 +44,7 @@ nav a {
   background-color: white;
   min-height: 300px;
   border: 1px solid #DBDBDB;
-  margin: 0 auto;
+  margin: 0 5px;
 }
 .trade-form-container form {
   width: 132px;
@@ -65,8 +65,9 @@ nav a {
   right: 30px;
   width: 58px;
 }
-@media (min-width: 800px) {
+@media (min-width: 805px) {
   .trade-form-container {
     max-width: 800px;
+    margin: 0 auto;
   }
 }
