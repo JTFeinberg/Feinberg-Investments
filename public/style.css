@@ -23,13 +23,11 @@ form div {
   display: inline-block;
 }
 
-hr {
-  margin-top: 0;
-}
 
-/* Trade Form
+/* Navbar
 --------------------------------*/
 nav {
+  padding-top: .5em;
   text-align: center;
   background-color: #568200;
   color: white;
@@ -43,7 +41,7 @@ nav h1 {
   justify-content: space-evenly;
 }
 .nav-link-container a {
-  margin: .5em;
+  padding: .5em;
   font-weight: 700;
   color: white;
   display: flex;
@@ -52,6 +50,10 @@ nav h1 {
 }
 .nav-link-container a:hover{
   background-color: #6EA500;
+}
+hr {
+  margin-top: 0;
+  margin-bottom: 1.5em;
 }
 
 
