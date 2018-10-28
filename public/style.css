@@ -46,6 +46,12 @@ nav h1 {
   margin: .5em;
   font-weight: 700;
   color: white;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
+.nav-link-container a:hover{
+  background-color: #6EA500;
 }
 
 
