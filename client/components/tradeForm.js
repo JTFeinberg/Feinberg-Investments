@@ -55,7 +55,7 @@ class TradeForm extends Component {
       quote
     } = this.state
     return (
-      <div>
+      <div className="trade-form-container">
         <h1>Cash on Hand ${user.balance}</h1>
         <form onSubmit={evt => makeTrade(evt, this.state, user.id)}>
           <input
