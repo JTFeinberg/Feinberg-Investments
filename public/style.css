@@ -70,12 +70,7 @@ hr {
   border: 1px solid #DBDBDB;
   margin: 0 5px;
 }
-@media (min-width: 805px) {
-  .transactions-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-}
+
 /* Trade Form
 --------------------------------*/
 .trade-form-container {
@@ -104,8 +99,15 @@ hr {
   right: 30px;
   width: 58px;
 }
+
+/* Media Queries
+--------------------------------*/
 @media (min-width: 805px) {
   .trade-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .transactions-container {
     max-width: 800px;
     margin: 0 auto;
   }
