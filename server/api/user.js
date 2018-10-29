@@ -1,19 +1,19 @@
 const router = require('express').Router()
-const {User, Transaction} = require('../db/models')
+const {User, Transaction, Portfolio} = require('../db/models')
 const IEX_API = 'https://api.iextrading.com/1.0'
 const axios = require('axios')
 
 module.exports = router
 
-//router.get('/portfolio'), async ()
-
-router.post('/transaction', async (req, res, next) => {
+router.post('/transaction/buy', async (req, res, next) => {
   const {action, stockSymbol, numOfShares, price, userId} = req.body
   if (req.user.id === userId) {
     try {
       const user = await User.findById(userId)
       const stockInfo = await axios.get(`${IEX_API}/stock/market/batch?symbols=${stockSymbol}&types=quote`)
-      if(user.balance >= numOfShares * price && stockInfo.data[stockSymbol] && !numOfShares.includes('.')){
+      const inPortfolio = await Portfolio.findOne({where: {userId, stockSymbol}})
+      const hasEnough = action === 'BUY' ? user.balance >= numOfShares * price : inPortfolio.numOfShares <= numOfShares
+      if(hasEnough && stockInfo.data[stockSymbol] && !numOfShares.includes('.')){
         const newTransaction = await Transaction.create({
           action,
           stockSymbol,
@@ -21,6 +21,7 @@ router.post('/transaction', async (req, res, next) => {
           price
         })
         newTransaction.setUser(user)
+        
         res.json(newTransaction)
       } else {
         res.status(403).send('Invalid Transaction')
