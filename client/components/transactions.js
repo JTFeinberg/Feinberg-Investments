@@ -9,6 +9,14 @@ const Transactions = ({transactions}) => {
   return transactions.length ? (
     <div className="transactions-container">
       <h3>Transaction History</h3>
+      <ul>
+                <li>Action</li>
+                <li>Stock Symbol</li>
+                <li>Number of Shares</li>
+                <li>Price Per Share</li>
+                <li>Toal Value</li>
+                <li>Date of Purchase</li>
+            </ul>
       {transactions.map(currTrans => {
          return (
             <ul key={currTrans.id}>
@@ -16,8 +24,8 @@ const Transactions = ({transactions}) => {
                 <li>{currTrans.stockSymbol}</li>
                 <li>{`${currTrans.numOfShares} shares`}</li>
                 <li>{`@ $${currTrans.price}`}</li>
-                <li>{`Total Value $${currTrans.value}`}</li>
-                <li>{`Date: ${currTrans.createdAt.split('T')[0]}`}</li>
+                <li>{`$${currTrans.value}`}</li>
+                <li>{`${currTrans.createdAt.split('T')[0]}`}</li>
             </ul>
           )
       })}
