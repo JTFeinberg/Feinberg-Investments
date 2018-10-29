@@ -22,7 +22,9 @@ form div {
   margin: 1em;
   display: inline-block;
 }
-
+ul {
+  list-style-type: none;
+}
 
 /* Navbar
 --------------------------------*/
@@ -59,6 +61,36 @@ hr {
   margin-top: 0;
   margin-bottom: 1.5em;
 }
+/* Transaction Histroy
+--------------------------------*/
+.transactions-container {
+  text-align: center;
+  background-color: white;
+  min-height: 300px;
+  border: 1px solid #DBDBDB;
+  margin: 0 5px;
+  padding: 1em;
+}
+.transactions-container ul {
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0;
+}
+.transactions-container .transactions-row:hover {
+  background-color: #E5E5E5
+}
+.transactions-container ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border: 1px solid black;
+  padding: 7px;
+}
+.transactions-container .transactions-header {
+  font-weight: 700;
+}
 
 
 /* Trade Form
@@ -89,8 +121,15 @@ hr {
   right: 30px;
   width: 58px;
 }
+
+/* Media Queries
+--------------------------------*/
 @media (min-width: 805px) {
   .trade-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .transactions-container {
     max-width: 800px;
     margin: 0 auto;
   }
