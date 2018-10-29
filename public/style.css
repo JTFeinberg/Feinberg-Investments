@@ -70,6 +70,16 @@ hr {
   border: 1px solid #DBDBDB;
   margin: 0 5px;
 }
+.transactions-container ul {
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+.transactions-container ul li {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
 /* Trade Form
 --------------------------------*/
