@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
  */
 const Transactions = ({transactions}) => {
   return transactions.length ? (
-    <div>
+    <div className="transactions-container">
       <h3>Transaction History</h3>
       {transactions.map(currTrans => {
          return (

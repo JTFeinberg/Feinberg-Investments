@@ -23,7 +23,6 @@ form div {
   display: inline-block;
 }
 
-
 /* Navbar
 --------------------------------*/
 nav {
@@ -59,8 +58,21 @@ hr {
   margin-top: 0;
   margin-bottom: 1.5em;
 }
-
-
+/* Transaction Histroy
+--------------------------------*/
+.transactions-container {
+  text-align: center;
+  background-color: white;
+  min-height: 300px;
+  border: 1px solid #DBDBDB;
+  margin: 0 5px;
+}
+@media (min-width: 805px) {
+  .transactions-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+}
 /* Trade Form
 --------------------------------*/
 .trade-form-container {
