@@ -16,9 +16,9 @@ const Transactions = ({transactions}) => {
         <li>Toal Value</li>
         <li>Date of Purchase</li>
       </ul>
-      {transactions.map(currTrans => {
+      {transactions.map((currTrans, idx) => {
         return (
-          <ul className="transactions-row" key={currTrans.id} >
+          <ul className={`transactions-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currTrans.id} >
             <li>{currTrans.action}</li>
             <li>{currTrans.stockSymbol}</li>
             <li>{`${currTrans.numOfShares} shares`}</li>
