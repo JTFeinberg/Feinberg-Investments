@@ -69,18 +69,20 @@ hr {
   min-height: 300px;
   border: 1px solid #DBDBDB;
   margin: 0 5px;
-  padding-right: 1em;
+  padding: 1em;
 }
 .transactions-container ul {
   padding: 0;
   display: flex;
   justify-content: space-evenly;
+  margin: 0;
 }
 .transactions-container ul li {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
+  border: 1px solid black;
 }
 .transactions-container .transactions-header {
   font-weight: 700;

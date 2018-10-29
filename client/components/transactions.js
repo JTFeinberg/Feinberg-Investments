@@ -22,8 +22,8 @@ const Transactions = ({transactions}) => {
             <li>{currTrans.action}</li>
             <li>{currTrans.stockSymbol}</li>
             <li>{`${currTrans.numOfShares} shares`}</li>
-            <li>{`@ $${currTrans.price}`}</li>
-            <li>{`$${currTrans.value}`}</li>
+            <li>{`$${currTrans.price}/share`}</li>
+            <li>{`$${Number(currTrans.value).toFixed(2)}`}</li>
             <li>{`${currTrans.createdAt.split('T')[0]}`}</li>
           </ul>
         )
