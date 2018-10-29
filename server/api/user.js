@@ -11,8 +11,8 @@ router.post('/transaction/buy', async (req, res, next) => {
     try {
       const user = await User.findById(userId)
       const stockInfo = await axios.get(`${IEX_API}/stock/market/batch?symbols=${stockSymbol}&types=quote`)
-      const inPortfolio = await Portfolio.findOne({where: {userId, stockSymbol}})
-      const hasEnough = action === 'BUY' ? user.balance >= numOfShares * price : inPortfolio.numOfShares <= numOfShares
+      const portfolio = await Portfolio.findOne({where: {userId, stockSymbol}})
+      const hasEnough = user.balance >= numOfShares * price
       if(hasEnough && stockInfo.data[stockSymbol] && !numOfShares.includes('.')){
         const newTransaction = await Transaction.create({
           action,
@@ -21,7 +21,12 @@ router.post('/transaction/buy', async (req, res, next) => {
           price
         })
         newTransaction.setUser(user)
-        
+        if (portfolio) {
+          await portfolio.update({numOfShares: portfolio.numOfShares + newTransaction.numOfShares, totalInvested: portfolio.totalInvested + Number(newTransaction.value)})
+        } else {
+          const newPortfolio = await Portfolio.create({stockSymbol, numOfShares, totalInvested: newTransaction.value})
+          newPortfolio.setUser(user)
+        }
         res.json(newTransaction)
       } else {
         res.status(403).send('Invalid Transaction')
