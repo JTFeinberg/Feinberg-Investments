@@ -77,8 +77,11 @@ hr {
   justify-content: space-evenly;
   margin: 0;
 }
-.transactions-container .transactions-row:hover {
+.shade-alternate {
   background-color: #E5E5E5
+}
+.transactions-container .transactions-row:hover {
+  background-color: #A5A5A5
 }
 .transactions-container ul li {
   display: flex;
