@@ -5,6 +5,8 @@ const axios = require('axios')
 
 module.exports = router
 
+//router.get('/portfolio'), async ()
+
 router.post('/transaction', async (req, res, next) => {
   const {action, stockSymbol, numOfShares, price, userId} = req.body
   if (req.user.id === userId) {

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Transaction} = require('../db/models')
+const {User, Transaction, Portfolio} = require('../db/models')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
@@ -40,9 +40,7 @@ router.post('/logout', (req, res) => {
 
 router.get('/me', async (req, res, next) => {
   try {
-    const user = await User.findById(req.user.id, {
-      include: [{model: Transaction}]
-    })
+    const user = await User.includeAccountInfo(req.user.id, Transaction, Portfolio)
     res.json(user)
   } catch (err) {
     next(err)
