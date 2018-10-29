@@ -18,7 +18,7 @@ const Transactions = ({transactions}) => {
       </ul>
       {transactions.map(currTrans => {
         return (
-          <ul key={currTrans.id}>
+          <ul className="transactions-row" key={currTrans.id} >
             <li>{currTrans.action}</li>
             <li>{currTrans.stockSymbol}</li>
             <li>{`${currTrans.numOfShares} shares`}</li>

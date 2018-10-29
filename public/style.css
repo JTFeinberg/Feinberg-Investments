@@ -77,6 +77,9 @@ hr {
   justify-content: space-evenly;
   margin: 0;
 }
+.transactions-container .transactions-row:hover {
+  background-color: #E5E5E5
+}
 .transactions-container ul li {
   display: flex;
   justify-content: center;
