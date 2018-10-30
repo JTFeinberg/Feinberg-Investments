@@ -8,7 +8,7 @@ export const TradeConfirmation = ({transaction}) => {
 
   return (
     <div>
-     {transaction}
+     {`${transaction.id}`}
     </div>
   )
 }

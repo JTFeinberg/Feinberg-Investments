@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 /**
  * ACTION TYPES
@@ -33,6 +34,7 @@ export const postTradedStockThunk = (formInputs, userId) => async dispatch => {
         userId
       })
       dispatch(tradeStock(res.data))
+      history.push(`/user/trade_confirmation/${res.data.id}`)
     } catch (err) {
         console.error(err)
     }
