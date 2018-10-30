@@ -5,6 +5,20 @@ const axios = require('axios')
 
 module.exports = router
 
+router.get('/transaction/:id', async (req, res, next) => {
+  try {
+    const transaction = await Transaction.findOne({
+      where: {
+        id: req.params.id,
+        userId: req.user.id
+      }
+    })
+    res.json(transaction)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/transaction/buy', async (req, res, next) => {
   const {action, stockSymbol, numOfShares, price, userId} = req.body
   if (req.user.id === userId) {
