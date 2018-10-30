@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {IEX_API} from '../'
+import {fetchPortfolioThunk} from '../store'
 import axios from 'axios'
 
 /**
@@ -53,10 +54,18 @@ const Portfolio = ({stocks}) => {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapStateToProps = state => {
   return {
     stocks: state.user.portfolios
   }
 }
 
-export default connect(mapState)(Portfolio)
+const mapDispatchToProps = disptach => {
+    return {
+      loadStockQuotes: (ownedStockSymbols) => disptach(fetchPortfolioThunk(ownedStockSymbols))
+    }
+  }
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Portfolio)
