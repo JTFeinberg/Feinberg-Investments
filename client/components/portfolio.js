@@ -9,11 +9,15 @@ import axios from 'axios'
 const Portfolio = ({stocks}) => {
 
     const stockInfo = async (stockSymbol) => {
-        let currInfo = await axios.get(`${IEX_API}/stock/market/batch?symbols=${stockSymbol}&types=quote`)
-        console.log(currInfo.data[stockSymbol].quote.latestPrice)
-        return currInfo.data[stockSymbol].quote
+        if (stocks) {
+            let stockSymbolsStr = stocks.map(currStock => currStock.stockSymbol).join(',')
+            console.log('STOCKSYMBOLS', stockSymbolsStr)
+            let currInfo = await axios.get(`${IEX_API}/stock/market/batch?symbols=${stockSymbolsStr}&types=quote`)
+            console.log(currInfo.data[stockSymbol].quote.latestPrice)
+            return currInfo.data[stockSymbol].quote
+        }
     }
-    
+
   return stocks && stocks.length ? (
     <div className="transactions-container">
       <h3>Transaction History</h3>
