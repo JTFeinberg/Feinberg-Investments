@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {IEX_API} from '../'
 import {fetchPortfolioThunk} from '../store'
-import axios from 'axios'
 
 /**
  * COMPONENT
@@ -15,34 +13,29 @@ class Portfolio extends Component {
             this.props.loadStockQuotes(stockSymbolsStr)
         }
     }
-    // const stockInfo = async (stockSymbol) => {
-    //     if (stocks) {
-    //         let stockSymbolsStr = stocks.map(currStock => currStock.stockSymbol).join(',')
-    //         console.log('STOCKSYMBOLS', stockSymbolsStr)
-    //         let currInfo = await axios.get(`${IEX_API}/stock/market/batch?symbols=${stockSymbolsStr}&types=quote`)
-    //         console.log(currInfo.data[stockSymbol].quote.latestPrice)
-    //         return currInfo.data[stockSymbol].quote
-    //     }
-    // }
+ 
   render() {
       const {stocks, latestStockData} = this.props
-      return stocks && stocks.length ? (
+      return stocks && stocks.length  && latestStockData[stocks[0].stockSymbol] ? (
         <div className="transactions-container">
           <h3>Transaction History</h3>
           <ul className="transactions-header">
             <li>Stock Symbol</li>
             <li>latest Price</li>
             <li>Number of Shares</li>
-            <li>Price Per Share</li>
-            <li>Toal Value</li>
+            <li>Current Value</li>
+            <li>Cost Basis</li>
+            <li>Total Invested</li>
             <li>Date of Purchase</li>
           </ul>
           {stocks.map((currStock, idx) => {
+              let {latestPrice} = latestStockData[currStock.stockSymbol].quote
             return (
               <ul className={`transactions-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currStock.id} >
                 <li>{currStock.stockSymbol}</li>
-                {/* <li>{`$${stockInfo(currStock.stockSymbol).latestPrice}`}</li> */}
+                <li>{`$${latestPrice}`}</li>
                 <li>{`${currStock.numOfShares} shares`}</li>
+                <li>{`$${(currStock.numOfShares * latestPrice).toFixed(2)}`}</li>
                 <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>
                 <li>{`$${Number(currStock.totalInvested).toFixed(2)}`}</li>
                 <li>{`${currStock.createdAt.split('T')[0]}`}</li>
