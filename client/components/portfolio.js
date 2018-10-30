@@ -22,24 +22,27 @@ class Portfolio extends Component {
           <ul className="transactions-header">
             <li>Stock Symbol</li>
             <li>Latest Price</li>
-            <li>Number of Shares</li>
+            <li>Today's Gain/Loss</li>
             <li>Total Gain/Loss</li>
             <li>Current Value</li>
+            <li>Quantity</li>
             <li>Cost Basis</li>
             <li>Total Invested</li>
             <li>Date of Purchase</li>
           </ul>
           {stocks.map((currStock, idx) => {
-              let {latestPrice} = latestStockData[currStock.stockSymbol].quote
+              let {latestPrice, open} = latestStockData[currStock.stockSymbol].quote
               let currValue = (currStock.numOfShares * latestPrice).toFixed(2)
               let totalChange = (currValue - Number(currStock.totalInvested)).toFixed(2)
+              let todaysChange = (latestPrice - open).toFixed(2)
             return (
               <ul className={`transactions-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currStock.id} >
                 <li>{currStock.stockSymbol}</li>
                 <li>{`$${latestPrice}`}</li>
-                <li>{`${currStock.numOfShares} shares`}</li>
+                <li>{`${todaysChange}\n${(todaysChange / open * 100).toFixed(2)}%`}</li>
                 <li>{`${totalChange}\n${(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%`}</li>
                 <li>{`$${currValue}`}</li>
+                <li>{`${currStock.numOfShares} shares`}</li>
                 <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>
                 <li>{`$${Number(currStock.totalInvested).toFixed(2)}`}</li>
                 <li>{`${currStock.createdAt.split('T')[0]}`}</li>
