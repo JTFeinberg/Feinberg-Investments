@@ -38,9 +38,9 @@ class Portfolio extends Component {
             return (
               <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currStock.id} >
                 <li>{currStock.stockSymbol}</li>
-                <li>{`$${latestPrice}`}</li>
-                <li>{`${todaysChange}\n${(todaysChange / open * 100).toFixed(2)}%`}</li>
-                <li>{`${totalChange}\n${(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%`}</li>
+                <li>${latestPrice}<br/>${todaysChange}</li>
+                <li>${(todaysChange * currStock.numOfShares).toFixed(2)}<br/>{(todaysChange / open * 100).toFixed(2)}%</li>
+                <li>${totalChange}<br/>{(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%</li>
                 <li>{`$${currValue}`}</li>
                 <li>{`${currStock.numOfShares} shares`}</li>
                 <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>
