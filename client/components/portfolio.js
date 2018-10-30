@@ -35,12 +35,14 @@ class Portfolio extends Component {
               let currValue = (currStock.numOfShares * latestPrice).toFixed(2)
               let totalChange = (currValue - Number(currStock.totalInvested)).toFixed(2)
               let todaysChange = (latestPrice - open).toFixed(2)
+              let todaysChangeColor = todaysChange > 0 ? 'gain' : todaysChange < 0 ? 'loss' : 'no-change'
+              let totalChangeColor = totalChange > 0 ? 'gain' : totalChange < 0 ? 'loss' : 'no-change'
             return (
               <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currStock.id} >
                 <li>{currStock.stockSymbol}</li>
-                <li>${latestPrice}<br/>${todaysChange}</li>
-                <li>${(todaysChange * currStock.numOfShares).toFixed(2)}<br/>{(todaysChange / open * 100).toFixed(2)}%</li>
-                <li>${totalChange}<br/>{(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%</li>
+                <li className={todaysChangeColor}>${latestPrice}<br/>${todaysChange}</li>
+                <li className={todaysChangeColor}>${(todaysChange * currStock.numOfShares).toFixed(2)}<br/>{(todaysChange / open * 100).toFixed(2)}%</li>
+                <li className={totalChangeColor}>${totalChange}<br/>{(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%</li>
                 <li>{`$${currValue}`}</li>
                 <li>{`${currStock.numOfShares} shares`}</li>
                 <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>

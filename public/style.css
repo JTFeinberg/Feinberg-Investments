@@ -64,6 +64,15 @@ hr {
 .shade-alternate {
   background-color: #E5E5E5
 }
+.gain {
+  color: #006600;
+}
+.loss {
+  color: #cc0000;
+}
+.no-change {
+  color: gray;
+}
 /* Portfolio
 --------------------------------*/
 .portfolio-container {
