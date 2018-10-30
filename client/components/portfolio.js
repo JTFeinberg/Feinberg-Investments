@@ -17,9 +17,9 @@ class Portfolio extends Component {
   render() {
       const {stocks, latestStockData} = this.props
       return stocks && stocks.length  && latestStockData[stocks[0].stockSymbol] ? (
-        <div className="transactions-container">
+        <div className="portfolio-container">
           <h3>Transaction History</h3>
-          <ul className="transactions-header">
+          <ul className="portfolio-header">
             <li>Stock Symbol</li>
             <li>Latest Price</li>
             <li>Today's Gain/Loss</li>
@@ -36,7 +36,7 @@ class Portfolio extends Component {
               let totalChange = (currValue - Number(currStock.totalInvested)).toFixed(2)
               let todaysChange = (latestPrice - open).toFixed(2)
             return (
-              <ul className={`transactions-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currStock.id} >
+              <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currStock.id} >
                 <li>{currStock.stockSymbol}</li>
                 <li>{`$${latestPrice}`}</li>
                 <li>{`${todaysChange}\n${(todaysChange / open * 100).toFixed(2)}%`}</li>
