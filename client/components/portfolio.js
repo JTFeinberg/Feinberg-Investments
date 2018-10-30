@@ -40,7 +40,7 @@ class Portfolio extends Component {
             return (
               <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currStock.id} >
                 <li>{currStock.stockSymbol}</li>
-                <li className={todaysChangeColor}>${latestPrice}<br/>${todaysChange}</li>
+                <li className={todaysChangeColor}>${latestPrice.toFixed(2)}<br/>${todaysChange}</li>
                 <li className={todaysChangeColor}>${(todaysChange * currStock.numOfShares).toFixed(2)}<br/>{(todaysChange / open * 100).toFixed(2)}%</li>
                 <li className={totalChangeColor}>${totalChange}<br/>{(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%</li>
                 <li>{`$${currValue}`}</li>
