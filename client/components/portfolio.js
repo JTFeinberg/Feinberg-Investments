@@ -21,8 +21,9 @@ class Portfolio extends Component {
           <h3>Transaction History</h3>
           <ul className="transactions-header">
             <li>Stock Symbol</li>
-            <li>latest Price</li>
+            <li>Latest Price</li>
             <li>Number of Shares</li>
+            <li>Total Gain/Loss</li>
             <li>Current Value</li>
             <li>Cost Basis</li>
             <li>Total Invested</li>
@@ -30,12 +31,15 @@ class Portfolio extends Component {
           </ul>
           {stocks.map((currStock, idx) => {
               let {latestPrice} = latestStockData[currStock.stockSymbol].quote
+              let currValue = (currStock.numOfShares * latestPrice).toFixed(2)
+              let totalChange = (currValue - Number(currStock.totalInvested)).toFixed(2)
             return (
               <ul className={`transactions-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currStock.id} >
                 <li>{currStock.stockSymbol}</li>
                 <li>{`$${latestPrice}`}</li>
                 <li>{`${currStock.numOfShares} shares`}</li>
-                <li>{`$${(currStock.numOfShares * latestPrice).toFixed(2)}`}</li>
+                <li>{`${totalChange}\n${(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%`}</li>
+                <li>{`$${currValue}`}</li>
                 <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>
                 <li>{`$${Number(currStock.totalInvested).toFixed(2)}`}</li>
                 <li>{`${currStock.createdAt.split('T')[0]}`}</li>
