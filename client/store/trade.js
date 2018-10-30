@@ -25,7 +25,7 @@ export const postTradedStockThunk = (formInputs, userId) => async dispatch => {
     quote
   } = formInputs
   try {
-      res = await axios.post('/api/user/transaction', {
+      res = await axios.post(`/api/user/transaction/${action.toLowerCase()}`, {
         action,
         stockSymbol,
         numOfShares,

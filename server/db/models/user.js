@@ -70,6 +70,16 @@ User.encryptPassword = function(plainText, salt) {
     .digest('hex')
 }
 
+User.includeAccountInfo = function(userId, Transaction, Portfolio) {
+  return User.findById(userId, {
+    include: [{
+      model: Transaction
+    },{
+      model: Portfolio
+    }]
+  })
+}
+
 /**
  * hooks
  */
