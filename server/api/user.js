@@ -60,7 +60,7 @@ router.post('/transaction/sell', async (req, res, next) => {
           if (portfolio.numOfShares === numOfShares) {
             portfolio.destory();
           } else {
-            await portfolio.update({numOfShares: portfolio.numOfShares - newTransaction.numOfShares, totalInvested: portfolio.totalInvested - Number(newTransaction.value)})
+            await portfolio.update({numOfShares: portfolio.numOfShares - newTransaction.numOfShares, totalInvested: portfolio.totalInvested - (portfolio.costBasis * newTransaction.numOfShares)})
           }
           await user.update({balance: +user.balance + Number(newTransaction.value)})
           res.json(newTransaction)

@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
  * COMPONENT
  */
 const Transactions = ({transactions}) => {
-  return transactions.length ? (
+  return transactions && transactions.length ? (
     <div className="transactions-container">
       <h3>Transaction History</h3>
       <ul className="transactions-header">

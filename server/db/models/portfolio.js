@@ -15,7 +15,7 @@ const Portfolio = db.define('portfolio', {
     type: Sequelize.FLOAT,
     allowNull: false
   },
-  coastBasis: {
+  costBasis: {
       type: Sequelize.VIRTUAL,
       get() {
         return `${(this.getDataValue('totalInvested') / this.getDataValue('numOfShares')).toFixed(2)}`
