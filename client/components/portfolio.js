@@ -15,11 +15,11 @@ class Portfolio extends Component {
     }
  
   render() {
-      const {stocks, latestStockData} = this.props
+      const {user, stocks, latestStockData} = this.props
       return stocks && stocks.length  && latestStockData[stocks[0].stockSymbol] ? (
-        <div className="transactions-container">
-          <h3>Transaction History</h3>
-          <ul className="transactions-header">
+        <div className="portfolio-container">
+          <h3>{user.fullName}'s Portfolio</h3>
+          <ul className="portfolio-header">
             <li>Stock Symbol</li>
             <li>Latest Price</li>
             <li>Today's Gain/Loss</li>
@@ -35,12 +35,14 @@ class Portfolio extends Component {
               let currValue = (currStock.numOfShares * latestPrice).toFixed(2)
               let totalChange = (currValue - Number(currStock.totalInvested)).toFixed(2)
               let todaysChange = (latestPrice - open).toFixed(2)
+              let todaysChangeColor = todaysChange > 0 ? 'gain' : todaysChange < 0 ? 'loss' : 'no-change'
+              let totalChangeColor = totalChange > 0 ? 'gain' : totalChange < 0 ? 'loss' : 'no-change'
             return (
-              <ul className={`transactions-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currStock.id} >
+              <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currStock.id} >
                 <li>{currStock.stockSymbol}</li>
-                <li>{`$${latestPrice}`}</li>
-                <li>{`${todaysChange}\n${(todaysChange / open * 100).toFixed(2)}%`}</li>
-                <li>{`${totalChange}\n${(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%`}</li>
+                <li className={todaysChangeColor}>${latestPrice.toFixed(2)}<br/>${todaysChange}</li>
+                <li className={todaysChangeColor}>${(todaysChange * currStock.numOfShares).toFixed(2)}<br/>{(todaysChange / open * 100).toFixed(2)}%</li>
+                <li className={totalChangeColor}>${totalChange}<br/>{(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%</li>
                 <li>{`$${currValue}`}</li>
                 <li>{`${currStock.numOfShares} shares`}</li>
                 <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>
@@ -64,6 +66,7 @@ class Portfolio extends Component {
  */
 const mapStateToProps = state => {
   return {
+    user: state.user,
     stocks: state.user.portfolios,
     latestStockData: state.portfolio
   }

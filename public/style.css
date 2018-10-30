@@ -61,6 +61,49 @@ hr {
   margin-top: 0;
   margin-bottom: 1.5em;
 }
+.shade-alternate {
+  background-color: #E5E5E5
+}
+.gain {
+  color: #006600;
+}
+.loss {
+  color: #cc0000;
+}
+.no-change {
+  color: gray;
+}
+/* Portfolio
+--------------------------------*/
+.portfolio-container {
+  text-align: center;
+  background-color: white;
+  min-height: 300px;
+  border: 1px solid #DBDBDB;
+  margin: 0 5px;
+  padding: 1em;
+}
+.portfolio-container ul {
+  padding: 0;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0;
+}
+.portfolio-container .portfolio-row:hover {
+  background-color: #A5A5A5
+}
+.portfolio-container ul li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border: 1px solid black;
+  padding: 7px;
+}
+.portfolio-container .portfolio-header {
+  font-weight: 700;
+}
+
 /* Transaction Histroy
 --------------------------------*/
 .transactions-container {
@@ -76,9 +119,6 @@ hr {
   display: flex;
   justify-content: space-evenly;
   margin: 0;
-}
-.shade-alternate {
-  background-color: #E5E5E5
 }
 .transactions-container .transactions-row:hover {
   background-color: #A5A5A5
@@ -134,6 +174,10 @@ hr {
   }
   .transactions-container {
     max-width: 800px;
+    margin: 0 auto;
+  }
+  .portfolio-container {
+    max-width: 90vw;
     margin: 0 auto;
   }
 }
