@@ -17,7 +17,7 @@ const getPortfolio = portfolio => ({type: GET_PORTFOLIO, payload: portfolio})
  * THUNK CREATORS
  */
 
-export const fetchPorfolioThunk = (stockSymbols) => async dispatch => {
+export const fetchPortfolioThunk = (stockSymbols) => async dispatch => {
   let res
   try {
       res = await axios.get(`${IEX_API}/stock/market/batch?symbols=${stockSymbols}&types=quote`)

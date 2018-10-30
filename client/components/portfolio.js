@@ -8,7 +8,13 @@ import axios from 'axios'
  * COMPONENT
  */
 class Portfolio extends Component {
-    // comp
+    componentDidMount() {
+        let stockSymbolsStr 
+        if(this.props.stocks) {
+            stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
+            this.props.loadStockQuotes(stockSymbolsStr)
+        }
+    }
     // const stockInfo = async (stockSymbol) => {
     //     if (stocks) {
     //         let stockSymbolsStr = stocks.map(currStock => currStock.stockSymbol).join(',')
@@ -35,7 +41,7 @@ class Portfolio extends Component {
             return (
               <ul className={`transactions-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currStock.id} >
                 <li>{currStock.stockSymbol}</li>
-                <li>{`$${stockInfo(currStock.stockSymbol).latestPrice}`}</li>
+                {/* <li>{`$${stockInfo(currStock.stockSymbol).latestPrice}`}</li> */}
                 <li>{`${currStock.numOfShares} shares`}</li>
                 <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>
                 <li>{`$${Number(currStock.totalInvested).toFixed(2)}`}</li>
