@@ -15,10 +15,10 @@ class Portfolio extends Component {
     }
  
   render() {
-      const {stocks, latestStockData} = this.props
+      const {user, stocks, latestStockData} = this.props
       return stocks && stocks.length  && latestStockData[stocks[0].stockSymbol] ? (
         <div className="portfolio-container">
-          <h3>Transaction History</h3>
+          <h3>{user.fullName}'s Portfolio</h3>
           <ul className="portfolio-header">
             <li>Stock Symbol</li>
             <li>Latest Price</li>
@@ -66,6 +66,7 @@ class Portfolio extends Component {
  */
 const mapStateToProps = state => {
   return {
+    user: state.user,
     stocks: state.user.portfolios,
     latestStockData: state.portfolio
   }
