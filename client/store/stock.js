@@ -20,7 +20,7 @@ const getStock = stock => ({type: GET_STOCK, payload: stock})
 export const fetchStockThunk = (stockSymbol) => async dispatch => {
   let res
   try {
-      res = await axios.get(`${IEX_API}/stock/market/batch?symbols=${stockSymbol}&types=quote,logo`)
+      res = await axios.get(`${IEX_API}/stock/${stockSymbol}/batch?types=quote,logo`)
       dispatch(getStock(res.data))
     } catch (err) {
         console.error(err)

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchPortfolioThunk} from '../store'
+import {fetchStockThunk} from '../store'
 
 /**
  * COMPONENT
@@ -11,13 +11,17 @@ class SingleStock extends Component {
         loadStockData(match.params.stockSymbol)
     }
   render() {
-    const {stock, match} = this.props
-    const {stockSymbol} = match.params
-      return stock[stockSymbol] ? (
+    const {stock} = this.props
+      return stock.quote ? (
         <div>
-          <h1>Welcome to the {stock[stockSymbol].quote.symbol} Page!</h1>
+          <h1>Welcome to the {stock.quote.symbol} Page!</h1>
         </div>
-      ) : null
+      ) : (
+        <div>
+        <h1>Invalid Stock Symbol</h1>
+        <h1>Please Try Again</h1>
+      </div>
+      )
   }
 }
 
@@ -26,14 +30,14 @@ class SingleStock extends Component {
  */
 const mapStateToProps = state => {
   return {
-    stock: state.portfolio
+    stock: state.stock
   }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
       loadStockData(stockSymbol) {
-          dispatch(fetchPortfolioThunk(stockSymbol))
+          dispatch(fetchStockThunk(stockSymbol))
       }
     }
   }
