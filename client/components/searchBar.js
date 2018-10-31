@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {fetchStockThunk} from '../store'
+
 
 /**
  * COMPONENT
@@ -16,17 +18,17 @@ class SearchBar extends Component {
     let {name, value} = target
     this.setState({[name]: value.toUpperCase()})
   }
-  handleSubmit = (evt) => {
-    evt.preventDefault()
-    this.props.history.push(`/stock_info/${evt.target.value}`)
+  handleClick= (input) => {
+    this.props.loadStockData(input)
+    this.setState({stockSymbol: ''})
   }
 render() {
     const {stockSymbol} = this.state
     return (
-      <form id="search-bar">
+      <form id="search-bar" >
           <input name="stockSymbol" value={stockSymbol} onChange={this.handleChange} maxLength="6"
             placeholder="Search Stock Symbols"/>
-          <Link to={`/stock_info/${stockSymbol}`}>LINK</Link>
+          <Link to={`/stock_info/${stockSymbol}`}><button onClick={() => this.handleClick(stockSymbol)}>Button</button></Link>
       </form>
     )
 }
@@ -35,10 +37,18 @@ render() {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapStateToProps = state => {
   return {
     symbols: state.symbols
   }
 }
 
-export default connect(mapState)(SearchBar)
+const mapDispatchToProps = dispatch => {
+    return {
+      loadStockData(stockSymbol) {
+        dispatch(fetchStockThunk(stockSymbol))
+      }
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)
