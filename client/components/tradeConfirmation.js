@@ -13,19 +13,19 @@ export const TradeConfirmation = ({match, transaction, loadTransactionData}) => 
       <div className="trade-confirmation-wrapper">
 
       <ul className="trade-confirmation-col">
-        <li>Action</li>
+        <li className="shade-alternate">Action</li>
         <li>Stock Symbol</li>
-        <li>Number of Shares</li>
+        <li className="shade-alternate">Number of Shares</li>
         <li>Price Per Share</li>
-        <li>Toal Value</li>
+        <li className="shade-alternate">Toal Value</li>
         <li>Date of Purchase</li>
       </ul>
       <ul className="trade-confirmation-col">
-        <li>{transaction.action}</li>
+        <li className="shade-alternate">{transaction.action}</li>
         <li>{transaction.stockSymbol}</li>
-        <li>{`${transaction.numOfShares} shares`}</li>
+        <li className="shade-alternate">{`${transaction.numOfShares} shares`}</li>
         <li>{`$${transaction.price}/share`}</li>
-        <li>{`$${Number(transaction.value).toFixed(2)}`}</li>
+        <li className="shade-alternate">{`$${Number(transaction.value).toFixed(2)}`}</li>
         <li>{`${transaction.createdAt.split('T')[0]}`}</li>
       </ul>
       </div>
