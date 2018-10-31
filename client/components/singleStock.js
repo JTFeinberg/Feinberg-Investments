@@ -23,7 +23,7 @@ class SingleStock extends Component {
       //If stock does exist but old data is still on state, show Loading...
       //Otherwise show requested stock data
       stock.quote.symbol === match.params.stockSymbol.toUpperCase() ? (
-        <div>
+        <div className="single-stock-container">
           <div className="stock-header">
             <h1>{`(${quote.symbol}) ${quote.companyName}`}</h1>
             <ul className="stock-header-list">
@@ -77,10 +77,10 @@ class SingleStock extends Component {
           </ul>
         </div>
       ) : (
-        <div>LOADING...</div>
+        <div className="single-stock-container">LOADING...</div>
       )
     ) : (
-      <div>
+      <div className="single-stock-container">
         <h1>Invalid Stock Symbol</h1>
         <h1>Please Try Again</h1>
       </div>

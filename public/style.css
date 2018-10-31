@@ -188,6 +188,13 @@ hr {
 }
 /* Single Stock Page
 --------------------------------*/
+.single-stock-container {
+  text-align: center;
+  background-color: white;
+  min-height: 300px;
+  border: 1px solid #DBDBDB;
+  margin: 0 5px;
+}
 .refresh-btn {
   background-image: url('https://www.fidelity.com/webcontent/ap110398-researchsnapshot-content/18.09.0/images/rsh_snapshot_sprite.png');
   background-position: -189px -215px;
