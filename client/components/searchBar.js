@@ -28,7 +28,7 @@ render() {
       <form id="search-bar" >
           <input name="stockSymbol" value={stockSymbol} onChange={this.handleChange} maxLength="6"
             placeholder="Search Stock Symbols"/>
-          <Link to={`/stock_info/${stockSymbol}`}><button onClick={() => this.handleClick(stockSymbol)}>Button</button></Link>
+          <Link to={`/stock_info/${stockSymbol}`}><button id="search-bar-btn" onClick={() => this.handleClick(stockSymbol)}/></Link>
       </form>
     )
 }

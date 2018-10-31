@@ -26,6 +26,18 @@ form div {
 ul {
   list-style-type: none;
 }
+.shade-alternate {
+  background-color: #E5E5E5
+}
+.gain {
+  color: #006600;
+}
+.loss {
+  color: #cc0000;
+}
+.no-change {
+  color: gray;
+}
 
 /* Navbar
 --------------------------------*/
@@ -63,21 +75,23 @@ hr {
   margin-bottom: 1.5em;
 }
 #search-bar {
+  display: flex;
   position: fixed;
   top: 20px;
   right: 20px;
 }
-.shade-alternate {
-  background-color: #E5E5E5
+#search-bar-btn {
+  width: 26px;
+  height: 26px;
+  margin: -1px 0 0 -5px;
+  background-color: transparent;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAMAAACelLz8AAAA1VBMVEX///9PYzxNYTtSfStZhDD///9blCFemiFZlRtSjhdNiBJkoiRWkhlhnyJGexA1bAJOhBfW5chFeg/1+PJBcw9YjiBLhBCVuXDJ27d8qUwoUQG1zZzb6spCfApaiyaJp2vg69V/uULs9OVEchqsyo3j79dpqCh1sDepy4Xf6dTM3rhyrTXM3bouXgMxZAM2WxQ2bQSFuFBljj56uzVqlD86YRacu32xyJmVum+AqVeqxY+fxHiLt13I4LC70Kc/bw+/0qpnmzCIu1I3bgV0tTG71qBsqyoJihVZAAAABXRSTlMAiIizs5ggzRAAAADbSURBVHhefcyFjsMwDIDhbnd2yoxjZjhmpvd/pDkrbDs1/RTJjn7JUgWrUWpbp3Rdpn/VqFEqd3MrTP21ZP0IbCrTn8AhfbUA4HV6kiZ7l97g+eXXGy8nuTxprcEnIiYwO04aZ0AUIAbBytFylAyOwSMyxvDJYUaGEuMQmjzJvRhZhpLM6R9eQmMETTlXpM4cFqMeAERHSecUu3PnOPE9tQc9RUnZs22TntmlpqSKpKqhSfwuvKlFUjMhZ/rvbpj+KYUnXN/Ntv+JXz2ktkBFGgrT95lkXZQanks7Hj9RjYfPLtQAAAAASUVORK5CYII=);
+  background-repeat: no-repeat;
+  border: none;
 }
-.gain {
-  color: #006600;
-}
-.loss {
-  color: #cc0000;
-}
-.no-change {
-  color: gray;
+#search-bar a {
+  padding: 0;
+  box-shadow: none;
 }
 /* Portfolio
 --------------------------------*/
