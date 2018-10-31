@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchStockThunk} from '../store'
+import {fetchStockThunk, resetStockThunk} from '../store'
 
 /**
  * COMPONENT
@@ -9,6 +9,10 @@ class SingleStock extends Component {
   componentDidMount() {
     const {match, loadStockData} = this.props
     loadStockData(match.params.stockSymbol)
+  }
+
+  componentWillUnmount() {
+      this.props.resetStockState()
   }
   
   render() {
@@ -46,6 +50,9 @@ const mapDispatchToProps = dispatch => {
   return {
     loadStockData(stockSymbol) {
       dispatch(fetchStockThunk(stockSymbol))
+    },
+    resetStockState() {
+        dispatch(resetStockThunk())
     }
   }
 }
