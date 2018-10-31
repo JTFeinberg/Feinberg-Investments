@@ -33,7 +33,7 @@ class SingleStock extends Component {
 
           <ul className="stock-left">
             <li>
-              <p>${quote.latestPrice}</p>
+              <p>${quote.latestPrice.toFixed(2)}</p>
             </li>
             <li className={quote.change > 0 ? 'gain' : 'loss'}>
               <p>
@@ -53,25 +53,25 @@ class SingleStock extends Component {
             <li>
               <p>
                 <span>Previous Close</span>
-                <span>{quote.previousClose}</span>
+                <span>${quote.previousClose}</span>
               </p>
             </li>
             <li>
               <p>
                 <span>Open</span>
-                <span>{quote.open}</span>
+                <span>${quote.open}</span>
               </p>
             </li>
             <li>
               <p>
                 <span>Bid x Size</span>
-                <span>{quote.iexBidPrice} x {quote.iexBidSize}</span>
+                <span>${quote.iexBidPrice} x {quote.iexBidSize}</span>
               </p>
             </li>
             <li>
               <p>
                 <span>Ask x Size</span>
-                <span>{quote.iexAskPrice} x {quote.iexAskSize}</span>
+                <span>${quote.iexAskPrice} x {quote.iexAskSize}</span>
               </p>
             </li>
           </ul>
