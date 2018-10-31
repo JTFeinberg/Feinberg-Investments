@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout, fetchAllSymbolsThunk} from '../store'
+import SearchBar from './searchBar';
 
 const Navbar = ({handleClick, isLoggedIn, symbolsLoaded, loadAllSymbols}) => {
   if (symbolsLoaded) loadAllSymbols()
@@ -16,6 +17,7 @@ const Navbar = ({handleClick, isLoggedIn, symbolsLoaded, loadAllSymbols}) => {
             <Link to="/home">Home</Link>
             <Link to="/user/transaction_history">Transactions</Link>
             <Link to= "/user/trade_form">Buy/Sell</Link>
+            <SearchBar />
             <a href="#" onClick={handleClick}>
               Logout
             </a>
