@@ -31,7 +31,7 @@ class SingleStock extends Component {
               <span id="sector">{quote.sector}</span>
             </div>
           </div>
-
+          <div className="single-stock-row">
           <ul className="stock-left">
             <li>
               <p>${quote.latestPrice.toFixed(2)}</p>
@@ -76,6 +76,7 @@ class SingleStock extends Component {
               </p>
             </li>
           </ul>
+          </div>
         </div>
       ) : (
         <div className="single-stock-container">LOADING...</div>

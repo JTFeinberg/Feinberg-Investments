@@ -189,7 +189,6 @@ hr {
 /* Single Stock Page
 --------------------------------*/
 .single-stock-container {
-  text-align: center;
   background-color: white;
   min-height: 300px;
   border: 1px solid #DBDBDB;
@@ -210,7 +209,15 @@ hr {
     padding: 2.5px;
     color: gray;
 }
-
+.single-stock-row {
+  display: flex;
+}
+.stock-left {
+  width: 33%
+}
+.stock-right {
+  width: 66%
+}
 
 .refresh-btn {
   background-image: url('https://www.fidelity.com/webcontent/ap110398-researchsnapshot-content/18.09.0/images/rsh_snapshot_sprite.png');
