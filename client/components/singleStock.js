@@ -52,14 +52,26 @@ class SingleStock extends Component {
           <ul className="stock-right">
             <li>
               <p>
-                <span>Stock Symbol: </span>
-                {quote.symbol}
+                <span>Previous Close</span>
+                <span>{quote.previousClose}</span>
               </p>
             </li>
             <li>
               <p>
-                <span>Stock Symbol: </span>
-                {quote.symbol}
+                <span>Open</span>
+                <span>{quote.open}</span>
+              </p>
+            </li>
+            <li>
+              <p>
+                <span>Bid x Size</span>
+                <span>{quote.iexBidPrice} x {quote.iexBidSize}</span>
+              </p>
+            </li>
+            <li>
+              <p>
+                <span>Ask x Size</span>
+                <span>{quote.iexAskPrice} x {quote.iexAskSize}</span>
               </p>
             </li>
           </ul>
