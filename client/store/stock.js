@@ -24,13 +24,14 @@ export const fetchStockThunk = (stockSymbol) => async dispatch => {
       dispatch(getStock(res.data))
     } catch (err) {
         console.error(err)
+        dispatch(getStock({error: err}))
     }
 }
 
 /**
  * REDUCER
  */
-export default function (state = {}, action) {
+export default function (state = {quote: {symbol: 'Initial State'}}, action) {
   switch (action.type) {
     case GET_STOCK:
       return action.payload
