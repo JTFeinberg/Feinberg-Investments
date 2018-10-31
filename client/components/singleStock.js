@@ -25,10 +25,11 @@ class SingleStock extends Component {
       stock.quote.symbol === match.params.stockSymbol.toUpperCase() ? (
         <div className="single-stock-container">
           <div className="stock-header">
-            <h1>{`(${quote.symbol}) ${quote.companyName}`}</h1>
-            <ul className="stock-header-list">
-              <li>{quote.sector}</li>
-            </ul>
+            <h1>{`${quote.companyName} (${quote.symbol})`}</h1>
+            <div className="stock-header-sector">
+              <span>Sector:</span>
+              <span id="sector">{quote.sector}</span>
+            </div>
           </div>
 
           <ul className="stock-left">

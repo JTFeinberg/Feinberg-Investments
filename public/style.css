@@ -195,6 +195,23 @@ hr {
   border: 1px solid #DBDBDB;
   margin: 0 5px;
 }
+.stock-header {
+  text-align: start;
+}
+.stock-header h1 {
+  margin-bottom: 0;
+  padding-left: 10px;
+}
+.stock-header-sector {
+  margin-left: 10px;
+}
+.stock-header-sector span {
+  font-size: smaller;
+    padding: 2.5px;
+    color: gray;
+}
+
+
 .refresh-btn {
   background-image: url('https://www.fidelity.com/webcontent/ap110398-researchsnapshot-content/18.09.0/images/rsh_snapshot_sprite.png');
   background-position: -189px -215px;
