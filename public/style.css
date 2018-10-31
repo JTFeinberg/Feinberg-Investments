@@ -164,15 +164,31 @@ hr {
   right: 30px;
   width: 58px;
 }
-
+/* Trade Confirmation
+--------------------------------*/
+.trade-confirmation-container {
+  text-align: center;
+  background-color: white;
+  min-height: 300px;
+  border: 1px solid #DBDBDB;
+  margin: 0 5px;
+}
+.trade-confirmation-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.trade-confirmation-wrapper .trade-confirmation-col {
+  padding: 0;
+  width: 35%;
+}
+.trade-confirmation-col li {
+  border: 1px solid black;
+  padding: 7px;
+}
 /* Media Queries
 --------------------------------*/
 @media (min-width: 805px) {
-  .trade-form-container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .transactions-container {
+  .trade-form-container, .transactions-container, .trade-confirmation-container{
     max-width: 800px;
     margin: 0 auto;
   }

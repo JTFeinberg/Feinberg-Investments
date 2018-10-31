@@ -8,11 +8,11 @@ import {fetchTradedStockThunk} from '../store'
 export const TradeConfirmation = ({match, transaction, loadTransactionData}) => {
   if (!transaction.id) loadTransactionData(match.params.id)
   return transaction.id ? (
-    <div className="transactions-container">
+    <div className="trade-confirmation-container">
       <h3>Transaction Confirmation</h3>
-      <div style={{display: "flex", justifyContent: "center"}}>
+      <div className="trade-confirmation-wrapper">
 
-      <ul>
+      <ul className="trade-confirmation-col">
         <li>Action</li>
         <li>Stock Symbol</li>
         <li>Number of Shares</li>
@@ -20,7 +20,7 @@ export const TradeConfirmation = ({match, transaction, loadTransactionData}) => 
         <li>Toal Value</li>
         <li>Date of Purchase</li>
       </ul>
-      <ul>
+      <ul className="trade-confirmation-col">
         <li>{transaction.action}</li>
         <li>{transaction.stockSymbol}</li>
         <li>{`${transaction.numOfShares} shares`}</li>
