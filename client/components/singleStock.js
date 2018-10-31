@@ -1,18 +1,24 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchPortfolioThunk} from '../store'
 
 /**
  * COMPONENT
  */
-const SingleStock = ({stock, match, loadStockData}) => {
-    let {stockSymbol} = match.params
-    loadStockData(stockSymbol)
-  return stock[stockSymbol] ? (
-    <div>
-      <h1>Welcome to the {stock[stockSymbol].quote.symbol} Page!</h1>
-    </div>
-  ) : null
+class SingleStock extends Component {
+    componentDidMount(){
+        const {match, loadStockData} = this.props
+        loadStockData(match.params.stockSymbol)
+    }
+  render() {
+    const {stock, match} = this.props
+    const {stockSymbol} = match.params
+      return stock[stockSymbol] ? (
+        <div>
+          <h1>Welcome to the {stock[stockSymbol].quote.symbol} Page!</h1>
+        </div>
+      ) : null
+  }
 }
 
 /**
