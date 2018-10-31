@@ -34,10 +34,10 @@ class SingleStock extends Component {
           <div className="single-stock-row">
           <ul className="stock-left">
             <li>
-              <p>${quote.latestPrice.toFixed(2)}</p>
+              <p id="latest-price">${quote.latestPrice.toFixed(2)}</p>
             </li>
             <li className={quote.change > 0 ? 'gain' : 'loss'}>
-              <p>
+              <p id="stock-day-change">
                 ${quote.change.toFixed(2)} ({(
                   quote.change / quote.previousClose
                 ).toFixed(2)}%)
@@ -47,7 +47,7 @@ class SingleStock extends Component {
                 </a>
             </li>
             <li>
-              <p>As of {quote.latestTime}</p>
+              <p id="latest-time">As of {quote.latestTime}</p>
             </li>
           </ul>
           <ul className="stock-right">

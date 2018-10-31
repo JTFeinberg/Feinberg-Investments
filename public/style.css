@@ -194,9 +194,6 @@ hr {
   border: 1px solid #DBDBDB;
   margin: 0 5px;
 }
-.stock-header {
-  text-align: start;
-}
 .stock-header h1 {
   margin-bottom: 0;
   padding-left: 10px;
@@ -213,10 +210,26 @@ hr {
   display: flex;
 }
 .stock-left {
-  width: 33%
+  width: 33%;
+  padding-left: 30px;
 }
 .stock-right {
   width: 66%
+}
+.stock-left li {
+  display: flex;
+}
+.stock-left li p {
+  margin: 0;
+}
+#stock-day-change {
+    padding-right: 5px;
+}
+#latest-price {
+  font-size: xx-large;
+}
+#latest-time {
+  font-size: x-small;
 }
 
 .refresh-btn {
