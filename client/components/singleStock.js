@@ -12,16 +12,16 @@ class SingleStock extends Component {
   }
 
   componentWillUnmount() {
-      this.props.resetStockState()
+    this.props.resetStockState()
   }
-  
+
   render() {
-    const {stock, match} = this.props
+    const {stock, match, loadStockData} = this.props
     const {quote, logo} = stock
     //If stock symbol doesn't exist, let user know
     return !stock.error ? (
-        //If stock does exist but old data is still on state, show Loading...
-        //Otherwise show requested stock data
+      //If stock does exist but old data is still on state, show Loading...
+      //Otherwise show requested stock data
       stock.quote.symbol === match.params.stockSymbol.toUpperCase() ? (
         <div>
           <div className="stock-header">
@@ -31,13 +31,37 @@ class SingleStock extends Component {
             </ul>
           </div>
 
-          <ul className='stock-left'>
-          <li><p>${quote.latestPrice}</p></li>
-          <li className={quote.latestPrice > quote.previousClose ? 'gain' : 'loss'}><p>${(quote.latestPrice - quote.previousClose).toFixed(2)} ({((quote.latestPrice - quote.previousClose)/quote.previousClose).toFixed(2)}%)</p></li>
+          <ul className="stock-left">
+            <li>
+              <p>${quote.latestPrice}</p>
+            </li>
+            <li className={quote.change > 0 ? 'gain' : 'loss'}>
+              <p>
+                ${quote.change.toFixed(2)} ({(
+                  quote.change / quote.previousClose
+                ).toFixed(2)}%)
+              </p>
+              <a onClick={() => loadStockData(quote.symbol)}>
+                  <div className="refresh-btn" />
+                </a>
+            </li>
+            <li>
+              <p>As of {quote.latestTime}</p>
+            </li>
           </ul>
-          <ul className='stock-right'>
-          <li><p><span>Stock Symbol: </span>{quote.symbol}</p></li>
-          <li><p><span>Stock Symbol: </span>{quote.symbol}</p></li>
+          <ul className="stock-right">
+            <li>
+              <p>
+                <span>Stock Symbol: </span>
+                {quote.symbol}
+              </p>
+            </li>
+            <li>
+              <p>
+                <span>Stock Symbol: </span>
+                {quote.symbol}
+              </p>
+            </li>
           </ul>
         </div>
       ) : (
@@ -67,7 +91,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(fetchStockThunk(stockSymbol))
     },
     resetStockState() {
-        dispatch(resetStockThunk())
+      dispatch(resetStockThunk())
     }
   }
 }
