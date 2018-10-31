@@ -12,6 +12,7 @@ body {
 
 a {
   text-decoration: none;
+  color: black;
 }
 
 label {
@@ -184,6 +185,14 @@ hr {
 .trade-confirmation-col li {
   border: 1px solid black;
   padding: 7px;
+}
+/* Single Stock Page
+--------------------------------*/
+.refresh-btn {
+  background-image: url('https://www.fidelity.com/webcontent/ap110398-researchsnapshot-content/18.09.0/images/rsh_snapshot_sprite.png');
+  background-position: -189px -215px;
+    width: 13px;
+    height: 15px;
 }
 /* Media Queries
 --------------------------------*/

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, Transactions, TradeForm, TradeConfirmation} from './components'
+import {Login, Signup, UserHome, Transactions, TradeForm, TradeConfirmation, SingleStock} from './components'
 import {me} from './store'
 
 /**
@@ -28,6 +28,7 @@ class Routes extends Component {
             <Route path="/user/transaction_history" component={Transactions} />
             <Route path="/user/trade_form" component={TradeForm} />
             <Route path="/user/trade_confirmation/:id" component={TradeConfirmation} />
+            <Route path="/stock_info/:stockSymbol" component={SingleStock} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
