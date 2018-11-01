@@ -8,17 +8,19 @@ import {Link} from 'react-router-dom'
  */
 class Portfolio extends Component {
     async componentDidMount() {
-        let stockSymbolsStr 
-        let {stocks, loadStockQuotes,fetchUserData} = this.props
-        if(this.props.stocks) {
-            await fetchUserData()
-            stockSymbolsStr = stocks.map(currStock => currStock.stockSymbol).join(',')
-            loadStockQuotes(stockSymbolsStr)
+      let stockSymbolsStr 
+      let {stocks, loadStockQuotes,fetchUserData} = this.props
+      if(stocks.length) {
+       await fetchUserData()
+          stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
+          await loadStockQuotes(stockSymbolsStr)
         }
     }
  
   render() {
       const {user, stocks, latestStockData} = this.props
+      console.log('STOCKS', stocks)
+      console.log(latestStockData)
       return stocks && stocks.length  && latestStockData[stocks[0].stockSymbol] ? (
         <div className="portfolio-container">
           <h3>{user.fullName}'s Portfolio</h3>
@@ -34,6 +36,7 @@ class Portfolio extends Component {
             <li>Date of Purchase</li>
           </ul>
           {stocks.map((currStock, idx) => {
+              
               let {latestPrice, open} = latestStockData[currStock.stockSymbol].quote
               let currValue = (currStock.numOfShares * latestPrice).toFixed(2)
               let totalChange = (currValue - Number(currStock.totalInvested)).toFixed(2)
