@@ -26,6 +26,7 @@ class Portfolio extends Component {
       return stocks && stocks.length  && latestStockData[stocks[0].stockSymbol] ? (
         <div className="portfolio-container">
           <h3>{user.fullName}'s Portfolio</h3>
+          {/* This list is used as a header row for the portfolio */}
           <ul className="portfolio-header">
             <li>Stock Symbol</li>
             <li>Latest Price</li>
@@ -64,11 +65,19 @@ class Portfolio extends Component {
                 <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} >
                   <li>{currStock.stockSymbol}</li>
                   <li className={todaysChangeColor}>${latestPrice.toFixed(2)}<br/>${todaysChange}</li>
-                  {/* Percent change is (B - A)/A * 100 */}
+                  {/* 
+                  Change in value for this stock in the users portfolio for the day, and the percent change
+                  Percent change is (B - A)/A * 100
+                   */}
                   <li className={todaysChangeColor}>${(todaysChange * currStock.numOfShares).toFixed(2)}<br/>{(todaysChange / open * 100).toFixed(2)}%</li>
+                  {/* 
+                  Change in value for this stock in the users portfolio since the stock was purchased, and the percent change
+                  Percent change is (B - A)/A * 100
+                   */}
                   <li className={totalChangeColor}>${totalChange}<br/>{(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%</li>
                   <li>{`$${currValue}`}</li>
                   <li>{`${currStock.numOfShares} shares`}</li>
+                  {/* Cost basis is calculated as the users total invesment/# of shares owned */}
                   <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>
                   <li>{`$${Number(currStock.totalInvested).toFixed(2)}`}</li>
                   <li>{`${currStock.createdAt.split('T')[0]}`}</li>
