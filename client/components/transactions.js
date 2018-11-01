@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -30,9 +31,9 @@ const Transactions = ({transactions}) => {
       })}
     </div>
   ) : (
-    <div>
+    <div className="no-data-container" >
       <h3>You have no transaction histrory</h3>
-      <h3>Click here to begin trading!</h3>
+      <Link to="/user/trade_form"><h3>Click here to begin trading!</h3></Link>
     </div>
   )
 }

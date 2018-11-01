@@ -60,6 +60,9 @@ class TradeForm extends Component {
     return (
       <div className="trade-form-container">
         <h1>Cash on Hand ${Number(user.balance).toFixed(2)}</h1>
+        {!isValidStock && isStockDirty ? (
+          <div>Please Enter a Valid Stock Symbol</div>
+        ) : null}
         <form onSubmit={evt => makeTrade(evt, this.state, user.id)}>
           <input
             name="stockSymbol"
@@ -94,9 +97,6 @@ class TradeForm extends Component {
             }
           />
         </form>
-        {!isValidStock && isStockDirty ? (
-          <div>Please Enter a Valid Stock Symbol</div>
-        ) : null}
       </div>
     )
   }
