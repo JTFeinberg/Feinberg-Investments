@@ -93,6 +93,23 @@ hr {
   padding: 0;
   box-shadow: none;
 }
+/* Auth-Form
+--------------------------------*/
+.auth-form-container {
+  text-align: center;
+  background-color: white;
+  min-height: 200px;
+  border: 1px solid #DBDBDB;
+  margin: 0 5px;
+  padding: 1em;
+}
+.auth-form-container form {
+  flex-direction: column;
+  display: flex;
+}
+.auth-form-container form label {
+  margin-bottom: 10px;
+}
 /* Portfolio
 --------------------------------*/
 .portfolio-container {
@@ -270,7 +287,7 @@ hr {
 /* Media Queries
 --------------------------------*/
 @media (min-width: 805px) {
-  .trade-form-container, .transactions-container, .trade-confirmation-container, .single-stock-container{
+  .trade-form-container, .transactions-container, .trade-confirmation-container, .single-stock-container, .auth-form-container{
     max-width: 800px;
     margin: 0 auto;
   }
