@@ -45,6 +45,9 @@ ul {
   margin: 0 5px;
   padding: 1em;
 }
+.no-data-container a:hover{
+  text-decoration: underline;
+}
 
 /* Navbar
 --------------------------------*/
