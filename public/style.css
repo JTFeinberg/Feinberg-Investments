@@ -75,7 +75,7 @@ hr {
 }
 #search-bar {
   display: flex;
-  position: fixed;
+  position: absolute;
   top: 20px;
   right: 20px;
 }
