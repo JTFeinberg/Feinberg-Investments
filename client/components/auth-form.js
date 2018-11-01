@@ -12,6 +12,8 @@ const AuthForm = props => {
   return (
     <div className="auth-form-container">
       <form onSubmit={handleSubmit} name={name}>
+      {/* If user is signing up, it is required that they enter their name. */}
+      {/* However, a users name is not used for authentication, so the fields only appear for signup */}
         {name === 'signup' ? (
           <div className="signup" >
             <div>
@@ -52,10 +54,6 @@ const AuthForm = props => {
 
 /**
  * CONTAINER
- *   Note that we have two different sets of 'mapStateToProps' functions -
- *   one for Login, and one for Signup. However, they share the same 'mapDispatchToProps'
- *   function, and share the same Component. This is a good example of how we
- *   can stay DRY with interfaces that are very similar to each other!
  */
 const mapLogin = state => {
   return {

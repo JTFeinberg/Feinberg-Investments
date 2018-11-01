@@ -6,6 +6,10 @@ import {logout, fetchAllSymbolsThunk} from '../store'
 import SearchBar from './searchBar';
 
 const Navbar = ({handleClick, isLoggedIn, symbolsLoaded, loadAllSymbols}) => {
+  /*This check makes sure we only load all the stock symbols from the IEX API once.
+  Loading all of the symbols was intended to be used for quick front end validations without
+  pinging the IEX API repeatedly. May remove in the future if this bears little fruit.
+  */
   if (symbolsLoaded) loadAllSymbols()
   return (
     <div>
@@ -13,7 +17,7 @@ const Navbar = ({handleClick, isLoggedIn, symbolsLoaded, loadAllSymbols}) => {
       <h1>Feinberg Investments</h1>
         {isLoggedIn ? (
           <div className="nav-link-container">
-            {/* The navbar will show these links after you log in */}
+            {/* The navbar will show these links after user logs in */}
             <Link to="/home">Home</Link>
             <Link to="/user/transaction_history">Transactions</Link>
             <Link to= "/user/trade_form">Buy/Sell</Link>
