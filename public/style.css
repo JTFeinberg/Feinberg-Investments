@@ -20,8 +20,7 @@ label {
 }
 
 form div {
-  margin: 1em;
-  display: inline-block;
+  margin-bottom: 1em;
 }
 ul {
   list-style-type: none;
@@ -92,6 +91,26 @@ hr {
 #search-bar a {
   padding: 0;
   box-shadow: none;
+}
+/* Auth-Form
+--------------------------------*/
+.auth-form-container {
+  text-align: center;
+  background-color: white;
+  min-height: 200px;
+  border: 1px solid #DBDBDB;
+  margin: 0 5px;
+  padding: 1em;
+}
+.auth-form-container form {
+  flex-direction: column;
+  display: flex;
+}
+.auth-form-container .signup {
+  margin: 0;
+}
+.auth-form-container form label {
+  margin-bottom: 10px;
 }
 /* Portfolio
 --------------------------------*/
@@ -270,7 +289,7 @@ hr {
 /* Media Queries
 --------------------------------*/
 @media (min-width: 805px) {
-  .trade-form-container, .transactions-container, .trade-confirmation-container, .single-stock-container{
+  .trade-form-container, .transactions-container, .trade-confirmation-container, .single-stock-container, .auth-form-container{
     max-width: 800px;
     margin: 0 auto;
   }
