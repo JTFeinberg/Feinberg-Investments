@@ -1,13 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import Portfolio from './portfolio';
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
+// As of now this component has no real purpose. For now it's a place holder
+//Hoping to add more features/components to the UserHome in the future
+export const UserHome = () => {
 
   return (
     <div>
@@ -19,17 +19,6 @@ export const UserHome = props => {
 /**
  * CONTAINER
  */
-const mapState = state => {
-  return {
-    email: state.user.email
-  }
-}
 
-export default connect(mapState)(UserHome)
+export default connect()(UserHome)
 
-/**
- * PROP TYPES
- */
-UserHome.propTypes = {
-  email: PropTypes.string
-}
