@@ -15,11 +15,12 @@ class SearchBar extends Component {
       }
   }
   handleChange = ({target}) => {
-    let {name, value} = target
-    this.setState({[name]: value.toUpperCase()})
+    this.setState({stockSymbol: target.value.toUpperCase()})
   }
   handleClick= (input) => {
+    //This loads the data for the stock symbol the user is searching
     this.props.loadStockData(input)
+    //After they click the search button we remove the input from the state/form
     this.setState({stockSymbol: ''})
   }
 render() {
@@ -28,6 +29,7 @@ render() {
       <form id="search-bar" >
           <input name="stockSymbol" value={stockSymbol} onChange={this.handleChange} maxLength="6"
             placeholder="Search Stock Symbols"/>
+            {/* Go to the singleStock component for the searched stock symbol when the user clicks search button */}
           <Link to={`/stock_info/${stockSymbol}`}><button id="search-bar-btn" onClick={() => this.handleClick(stockSymbol)}/></Link>
       </form>
     )
