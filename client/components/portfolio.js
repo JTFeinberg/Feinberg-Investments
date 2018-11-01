@@ -11,7 +11,10 @@ class Portfolio extends Component {
       let stockSymbolsStr 
       let {stocks, loadStockQuotes,fetchUserData} = this.props
       if(stocks.length) {
+        //fetchUserData is for updating the users portfolio to reflect recent transactions 
        await fetchUserData()
+       //stockSymbolsStr is passed in to loadStockQuotes to be used for a batch load of quotes from the IEX API
+       //That endpoint uses a comma delimited string of symbols, hence the .join(',')
           stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
           await loadStockQuotes(stockSymbolsStr)
         }
@@ -19,8 +22,7 @@ class Portfolio extends Component {
  
   render() {
       const {user, stocks, latestStockData} = this.props
-      console.log('STOCKS', stocks)
-      console.log(latestStockData)
+      //If the user has no stocks/has just signed up, show the alternate div encouraging them to begin trading!
       return stocks && stocks.length  && latestStockData[stocks[0].stockSymbol] ? (
         <div className="portfolio-container">
           <h3>{user.fullName}'s Portfolio</h3>
@@ -35,12 +37,26 @@ class Portfolio extends Component {
             <li>Total Invested</li>
             <li>Date of Purchase</li>
           </ul>
+          {/* This is the meat of the portfolio. Here we loop over the stocks from the state,
+           and check its most recent data that was loaded onto the state in the componentDidMount. */}
           {stocks.map((currStock, idx) => {
-              
+              /*
+              These come from the IEX API. They are the price of the stock at the open of the market from the day,
+              and the most recent price
+              */
               let {latestPrice, open} = latestStockData[currStock.stockSymbol].quote
+              //The current value of the users stock based on how many shares they own and the latest price
               let currValue = (currStock.numOfShares * latestPrice).toFixed(2)
+              //How much has the stock changed in value since the user bought the stock
               let totalChange = (currValue - Number(currStock.totalInvested)).toFixed(2)
+              //How much has the stock changed since the open
               let todaysChange = (latestPrice - open).toFixed(2)
+              /*
+              ** These will be used for classNames to dynamically render color.
+              ** If the change is positive, variable = 'gain',
+              ** If negative variable = 'loss', 
+              ** Otherwise it equals 'no-change'
+              */
               let todaysChangeColor = todaysChange > 0 ? 'gain' : todaysChange < 0 ? 'loss' : 'no-change'
               let totalChangeColor = totalChange > 0 ? 'gain' : totalChange < 0 ? 'loss' : 'no-change'
             return (
@@ -48,6 +64,7 @@ class Portfolio extends Component {
                 <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} >
                   <li>{currStock.stockSymbol}</li>
                   <li className={todaysChangeColor}>${latestPrice.toFixed(2)}<br/>${todaysChange}</li>
+                  {/* Percent change is (B - A)/A * 100 */}
                   <li className={todaysChangeColor}>${(todaysChange * currStock.numOfShares).toFixed(2)}<br/>{(todaysChange / open * 100).toFixed(2)}%</li>
                   <li className={totalChangeColor}>${totalChange}<br/>{(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%</li>
                   <li>{`$${currValue}`}</li>
