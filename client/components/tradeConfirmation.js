@@ -6,6 +6,8 @@ import {fetchTradedStockThunk} from '../store'
  * COMPONENT
  */
 export const TradeConfirmation = ({match, transaction, loadTransactionData}) => {
+  //If for some reason a user saves this url and they go back here, we need to load the transaction onto the state.
+  //Otherwise just use what was saved from when the user clicked submit on the trade form. 
   if (!transaction.id) loadTransactionData(match.params.id)
   return transaction.id ? (
     <div className="trade-confirmation-container">

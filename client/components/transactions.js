@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
  * COMPONENT
  */
 const Transactions = ({transactions}) => {
+  //If the user has no stocks/has just signed up, show the alternate div encouraging them to begin trading!
   return transactions && transactions.length ? (
     <div className="transactions-container">
       <h3>Transaction History</h3>

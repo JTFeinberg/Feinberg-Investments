@@ -12,12 +12,14 @@ class SingleStock extends Component {
   }
 
   componentWillUnmount() {
+    //Removes anything from the singleStock state just 
+    //so the user doesnt see it flash when they comeback to this component
     this.props.resetStockState()
   }
 
   render() {
     const {stock, match, loadStockData} = this.props
-    const {quote, logo} = stock
+    const {quote} = stock
     //If stock symbol doesn't exist, let user know
     return !stock.error ? (
       //If stock does exist but old data is still on state, show Loading...
@@ -37,16 +39,19 @@ class SingleStock extends Component {
               <p id="latest-price">${quote.latestPrice.toFixed(2)}</p>
             </li>
             <li className={quote.change > 0 ? 'gain' : 'loss'}>
+            {/* This change is different from the portfolio. This one is from the previous close. Portfolio is from, the open. */}
               <p id="stock-day-change">
                 ${quote.change.toFixed(2)} ({(
                   quote.change / quote.previousClose
                 ).toFixed(2)}%)
               </p>
+              {/* Get the latest data if clicked in case user is on the page for a while */}
               <a onClick={() => loadStockData(quote.symbol)}>
                   <div className="refresh-btn" />
                 </a>
             </li>
             <li>
+              {/* Most recent update time if during market times, otherwise most recent date */}
               <p id="latest-time">As of {quote.latestTime}</p>
             </li>
           </ul>

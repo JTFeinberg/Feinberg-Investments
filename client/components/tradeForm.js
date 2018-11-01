@@ -17,12 +17,16 @@ class TradeForm extends Component {
     }
   }
   componentDidMount() {
+    //Make sure we have the most recent balance for the user
     this.props.fetchUserData()
   }
 
   handleChange = async ({target}) => {
     let {name, value} = target
+    //By using the same values for the names of inputs as properties in the state,
+    //we can just use [name] instead of having to check which write out each state property
     this.setState({[name]: value.toUpperCase()})
+    //This is used as a front end validation to make sure that the symbol that has been typed in is a real one.
     if (name === 'stockSymbol' && value.length) {
       if (this.props.allSymbols.has(value.toUpperCase())) {
         let stockInfo = await axios.get(
@@ -35,10 +39,12 @@ class TradeForm extends Component {
       } else {
         this.setState({quote: {}, isValidStock: false})
       }
+      //Checks is user has typed anything yet.
       this.setState({isStockDirty: true})
     }
   }
 
+  //If the user doens't type in a whole number for shares, then we show this custom message
   isInteger = ({target}) => {
     if (target.validity.patternMismatch) {
       target.setCustomValidity('Please enter a whole number')
@@ -60,6 +66,7 @@ class TradeForm extends Component {
     return (
       <div className="trade-form-container">
         <h1>Cash on Hand ${Number(user.balance).toFixed(2)}</h1>
+        {/* Only show error message is User types symbol that doesnt exist, and has actually typed something */}
         {!isValidStock && isStockDirty ? (
           <div>Please Enter a Valid Stock Symbol</div>
         ) : null}
@@ -89,10 +96,13 @@ class TradeForm extends Component {
             id="trade-submit"
             type="submit"
             value="Submit"
+            // disable the submit button if the stock symbol is invalid, 
+            //if nothing is typed, if no shares are entered, 
+            //or is the user can't afford the purchase
             disabled={
               !isValidStock ||
               !stockSymbol.length ||
-              !numOfShares.length ||
+              !numOfShares ||
               user.balance < quote.latestPrice * numOfShares
             }
           />
