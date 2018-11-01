@@ -79,10 +79,10 @@ class SingleStock extends Component {
           </div>
         </div>
       ) : (
-        <div className="single-stock-container">LOADING...</div>
+        <div className="no-data-container">LOADING...</div>
       )
     ) : (
-      <div className="single-stock-container">
+      <div className="no-data-container">
         <h1>Invalid Stock Symbol</h1>
         <h1>Please Try Again</h1>
       </div>
