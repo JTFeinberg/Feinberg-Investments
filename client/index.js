@@ -6,8 +6,7 @@ import history from './history'
 import store from './store'
 import App from './app'
 export const IEX_API = 'https://api.iextrading.com/1.0'
-// establishes socket connection
-import './socket'
+
 
 ReactDOM.render(
   <Provider store={store}>
