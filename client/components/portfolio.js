@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchPortfolioThunk} from '../store'
+import {fetchPortfolioThunk, me} from '../store'
 import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
  */
 class Portfolio extends Component {
-    componentDidMount() {
+    async componentDidMount() {
         let stockSymbolsStr 
+        let {stocks, loadStockQuotes,fetchUserData} = this.props
         if(this.props.stocks) {
-            stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
-            this.props.loadStockQuotes(stockSymbolsStr)
+            await fetchUserData()
+            stockSymbolsStr = stocks.map(currStock => currStock.stockSymbol).join(',')
+            loadStockQuotes(stockSymbolsStr)
         }
     }
  
@@ -75,9 +77,10 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = disptach => {
+const mapDispatchToProps = dispatch => {
     return {
-      loadStockQuotes: (ownedStockSymbols) => disptach(fetchPortfolioThunk(ownedStockSymbols))
+      loadStockQuotes: (ownedStockSymbols) => dispatch(fetchPortfolioThunk(ownedStockSymbols)),
+      fetchUserData: () => dispatch(me())
     }
   }
 
