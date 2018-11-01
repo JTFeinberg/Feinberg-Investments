@@ -21,7 +21,6 @@ label {
 
 form div {
   margin: 1em;
-  display: inline-block;
 }
 ul {
   list-style-type: none;
@@ -106,6 +105,9 @@ hr {
 .auth-form-container form {
   flex-direction: column;
   display: flex;
+}
+.auth-form-container .signup {
+  margin: 0;
 }
 .auth-form-container form label {
   margin-bottom: 10px;
