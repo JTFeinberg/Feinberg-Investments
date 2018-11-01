@@ -71,12 +71,12 @@ router.post('/transaction/sell', async (req, res, next) => {
             price
           })
           newTransaction.setUser(user)
-          if (portfolio.numOfShares === numOfShares) {
-            portfolio.destory();
+          if (portfolio.numOfShares === +numOfShares) {
+            portfolio.destroy()
           } else {
             await portfolio.update({numOfShares: portfolio.numOfShares - newTransaction.numOfShares, totalInvested: portfolio.totalInvested - (portfolio.costBasis * newTransaction.numOfShares)})
           }
-          await user.update({balance: +user.balance + Number(newTransaction.value)})
+          await user.update({balance: (+user.balance + Number(newTransaction.value)).toFixed(2)})
           res.json(newTransaction)
         } else {
           res.status(403).send('Invalid Transaction')
