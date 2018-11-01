@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import {IEX_API} from '../'
-import {postTradedStockThunk} from '../store'
+import {postTradedStockThunk, me} from '../store'
 
 class TradeForm extends Component {
   constructor(props) {
@@ -15,6 +15,9 @@ class TradeForm extends Component {
       isValidStock: false,
       isStockDirty: false
     }
+  }
+  componentDidMount() {
+    this.props.fetchUserData()
   }
 
   handleChange = async ({target}) => {
@@ -114,6 +117,9 @@ const mapDispatchToProps = dispatch => {
     makeTrade(evt, formInputs, userId) {
       evt.preventDefault()
       dispatch(postTradedStockThunk(formInputs, userId))
+    },
+    fetchUserData() {
+      dispatch(me())
     }
   }
 }
