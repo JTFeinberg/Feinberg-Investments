@@ -59,7 +59,7 @@ class TradeForm extends Component {
     } = this.state
     return (
       <div className="trade-form-container">
-        <h1>Cash on Hand ${user.balance}</h1>
+        <h1>Cash on Hand ${Number(user.balance).toFixed(2)}</h1>
         <form onSubmit={evt => makeTrade(evt, this.state, user.id)}>
           <input
             name="stockSymbol"
