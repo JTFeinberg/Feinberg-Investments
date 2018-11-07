@@ -26,9 +26,8 @@ class SearchBar extends Component {
 render() {
     const {stockSymbol} = this.state
     const {stocksMap, symbolsArr} = this.props
-    console.log(symbolsArr)
-    // const filteredStocks = Array.from(symbols).filter(symbol => symbol.match(stockSymbol))
-    // if(stockSymbol.length >2) console.log(filteredStocks)
+    const filteredStocks = symbolsArr.filter(symbol => symbol.match(stockSymbol))
+    if(stockSymbol.length >1) console.log(filteredStocks)
     return (
       <div>
         <form id="search-bar" >
