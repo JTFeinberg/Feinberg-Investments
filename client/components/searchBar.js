@@ -25,13 +25,17 @@ class SearchBar extends Component {
   }
 render() {
     const {stockSymbol} = this.state
+    // const filteredStocks = [...this.props.symbols].filter(symbol => symbol.match(stockSymbol))
+    // if(stockSymbol.length >2) console.log(filteredStocks)
     return (
-      <form id="search-bar" >
-          <input name="stockSymbol" value={stockSymbol} onChange={this.handleChange} maxLength="6"
-            placeholder="Search Stock Symbols"/>
-            {/* Go to the singleStock component for the searched stock symbol when the user clicks search button */}
-          <Link to={`/stock_info/${stockSymbol}`}><button id="search-bar-btn" onClick={() => this.handleClick(stockSymbol)}/></Link>
-      </form>
+      <div>
+        <form id="search-bar" >
+            <input name="stockSymbol" value={stockSymbol} onChange={this.handleChange} maxLength="6"
+              placeholder="Search Stock Symbols"/>
+              {/* Go to the singleStock component for the searched stock symbol when the user clicks search button */}
+            <Link to={`/stock_info/${stockSymbol}`}><button id="search-bar-btn" onClick={() => this.handleClick(stockSymbol)}/></Link>
+        </form>
+      </div>
     )
 }
 }
