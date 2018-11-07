@@ -27,7 +27,6 @@ render() {
     const {stockSymbol} = this.state
     const {stocksMap, symbolsArr} = this.props
     const filteredStocks = symbolsArr.filter(symbol => symbol.match(stockSymbol))
-    if(stockSymbol.length >1) console.log(filteredStocks)
     return (
       <div>
         <form id="search-bar" >
@@ -37,10 +36,11 @@ render() {
             <Link to={`/stock_info/${stockSymbol}`}><button id="search-bar-btn" onClick={() => this.handleClick(stockSymbol)}/></Link>
         </form>
         {stockSymbol.length > 2 ?
-        (<ul>
+        (<ul id="search-bar-list">
+          <li className="list-header">Quotes</li>
           {filteredStocks.map(symbol => (
             <Link key={symbol} to={`/stock_info/${symbol}`}>
-            <li onClick={() => this.handleClick(symbol)}>{symbol} {stocksMap.get(symbol)}</li>
+            <li onClick={() => this.handleClick(symbol)}><span>{symbol}</span><span>{stocksMap.get(symbol)}</span></li>
             </Link>
           ))}
         </ul>) : null
