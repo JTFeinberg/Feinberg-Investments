@@ -25,7 +25,9 @@ class SearchBar extends Component {
   }
 render() {
     const {stockSymbol} = this.state
-    // const filteredStocks = [...this.props.symbols].filter(symbol => symbol.match(stockSymbol))
+    const {stocksMap, symbolsArr} = this.props
+    console.log(symbolsArr)
+    // const filteredStocks = Array.from(symbols).filter(symbol => symbol.match(stockSymbol))
     // if(stockSymbol.length >2) console.log(filteredStocks)
     return (
       <div>
@@ -45,7 +47,8 @@ render() {
  */
 const mapStateToProps = state => {
   return {
-    symbols: state.symbols
+    stocksMap: state.symbols,
+    symbolsArr: Array.from(state.symbols.keys())
   }
 }
 
