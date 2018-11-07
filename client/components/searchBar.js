@@ -36,6 +36,15 @@ render() {
               {/* Go to the singleStock component for the searched stock symbol when the user clicks search button */}
             <Link to={`/stock_info/${stockSymbol}`}><button id="search-bar-btn" onClick={() => this.handleClick(stockSymbol)}/></Link>
         </form>
+        {stockSymbol.length > 2 ?
+        (<ul>
+          {filteredStocks.map(symbol => (
+            <Link key={symbol} to={`/stock_info/${symbol}`}>
+            <li onClick={() => this.handleClick(symbol)}>{symbol} {stocksMap.get(symbol)}</li>
+            </Link>
+          ))}
+        </ul>) : null
+        }
       </div>
     )
 }
