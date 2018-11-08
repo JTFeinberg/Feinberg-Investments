@@ -131,6 +131,12 @@ hr {
 .search-bar-list-item:hover {
   background-color: #DBDBDB
 }
+.list-symbol {
+  width: 25%;
+}
+.list-name {
+  width: 75%;
+}
 /* Auth-Form
 --------------------------------*/
 .auth-form-container {

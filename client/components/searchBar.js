@@ -40,7 +40,7 @@ render() {
           <li className="list-header">Quotes</li>
           {filteredStocks.map(symbol => (
             <Link key={symbol} to={`/stock_info/${symbol}`}>
-            <li className="search-bar-list-item" onClick={() => this.handleClick(symbol)}><span>{symbol}</span><span>{stocksMap.get(symbol)}</span></li>
+            <li className="search-bar-list-item" onClick={() => this.handleClick(symbol)}><span className="list-symbol">{symbol}</span><span className="list-name">{stocksMap.get(symbol)}</span></li>
             </Link>
           ))}
         </ul>) : null
