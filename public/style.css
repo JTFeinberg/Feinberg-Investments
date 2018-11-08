@@ -91,7 +91,9 @@ hr {
   right: 20px;
 }
 #search-bar input{
-  padding: 5px 100px;
+  padding-left: 5px;
+  width: 329px;
+  font-size: 15px;
 }
 #search-bar-btn {
   width: 26px;
@@ -112,7 +114,7 @@ hr {
   padding: 0;
   background: white;
   color: black;
-  width: 329px;
+  width: 330px;
   text-align: left;
   border: 1px solid #666666;
   max-height: 350px;
