@@ -115,6 +115,8 @@ hr {
   width: 329px;
   text-align: left;
   border: 1px solid #666666;
+  max-height: 350px;
+  overflow: auto;
 }
 .list-header {
   background: #F4F4F4;;
