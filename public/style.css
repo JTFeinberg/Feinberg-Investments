@@ -84,6 +84,8 @@ hr {
   margin-top: 0;
   margin-bottom: 1.5em;
 }
+/* Search Bar
+--------------------------------*/
 #search-bar {
   display: flex;
   position: absolute;
