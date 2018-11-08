@@ -25,13 +25,27 @@ class SearchBar extends Component {
   }
 render() {
     const {stockSymbol} = this.state
+    const {stocksMap, symbolsArr} = this.props
+    const filteredStocks = symbolsArr.filter(symbol => symbol.match(stockSymbol))
     return (
-      <form id="search-bar" >
-          <input name="stockSymbol" value={stockSymbol} onChange={this.handleChange} maxLength="6"
-            placeholder="Search Stock Symbols"/>
-            {/* Go to the singleStock component for the searched stock symbol when the user clicks search button */}
-          <Link to={`/stock_info/${stockSymbol}`}><button id="search-bar-btn" onClick={() => this.handleClick(stockSymbol)}/></Link>
-      </form>
+      <div>
+        <form id="search-bar" >
+            <input name="stockSymbol" value={stockSymbol} onChange={this.handleChange} maxLength="6"
+              placeholder="Search Stock Symbols"/>
+              {/* Go to the singleStock component for the searched stock symbol when the user clicks search button */}
+            <Link to={`/stock_info/${stockSymbol}`}><button id="search-bar-btn" onClick={() => this.handleClick(stockSymbol)}/></Link>
+        </form>
+        {stockSymbol.length > 1 ?
+        (<ul id="search-bar-list">
+          <li className="list-header">Quotes</li>
+          {filteredStocks.map(symbol => (
+            <Link key={symbol} to={`/stock_info/${symbol}`}>
+            <li className="search-bar-list-item" onClick={() => this.handleClick(symbol)}><span className="list-symbol">{symbol}</span><span className="list-name">{stocksMap.get(symbol)}</span></li>
+            </Link>
+          ))}
+        </ul>) : null
+        }
+      </div>
     )
 }
 }
@@ -41,7 +55,8 @@ render() {
  */
 const mapStateToProps = state => {
   return {
-    symbols: state.symbols
+    stocksMap: state.symbols,
+    symbolsArr: Array.from(state.symbols.keys())
   }
 }
 
