@@ -105,6 +105,16 @@ hr {
   padding: 0;
   box-shadow: none;
 }
+#search-bar-list {
+  position: absolute;
+  top: 32px;
+  right: 46px;
+  padding: 0;
+  background: white;
+  color: black;
+  width: 329px;
+  box-shadow: none;
+}
 /* Auth-Form
 --------------------------------*/
 .auth-form-container {
