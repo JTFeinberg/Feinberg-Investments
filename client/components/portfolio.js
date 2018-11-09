@@ -74,6 +74,13 @@ class Portfolio extends Component {
       if(latestStockData[stocks[0].stockSymbol]) {
         sortedStocks = stocks.map(currStock => {
         currStock.quote = this.props.latestStockData[currStock.stockSymbol].quote
+        let {latestPrice, open} = currStock.quote
+        //The current value of the users stock based on how many shares they own and the latest price
+        currStock.currValue = Number((currStock.numOfShares * latestPrice).toFixed(2))
+        //How much has the stock changed in value since the user bought the stock
+        currStock.totalChange = Number((currStock.currValue - currStock.totalInvested).toFixed(2))
+        //How much has the stock changed since the open
+        currStock.todaysChange = Number((latestPrice - open).toFixed(2))
         return currStock
       }).sort(this.compare)
     }
