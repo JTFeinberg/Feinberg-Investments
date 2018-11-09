@@ -40,9 +40,6 @@ class Portfolio extends Component {
       let valueA = a[sortOn] ? a[sortOn] : a.quote[sortOn]
       let valueB = b[sortOn] ? b[sortOn] : b.quote[sortOn]
       let valIsString = typeof valueA === 'string'
-      console.log('VALUE A', valueA)
-      console.log('VALUE B', valueB)
-      console.log('COMPARE', valueA < valueB)
       if(valIsString) {
         return this.compareStrings(valueA, valueB)
       } else {
@@ -88,7 +85,6 @@ class Portfolio extends Component {
         return currStock
       }).sort(this.compare)
     }
-       console.log(sortedStocks)
       //If the user has no stocks/has just signed up, show the alternate div encouraging them to begin trading!
       return stocks && stocks.length  && latestStockData[stocks[0].stockSymbol] ? (
         <div className="portfolio-container">
