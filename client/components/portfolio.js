@@ -33,22 +33,39 @@ class Portfolio extends Component {
       } else {
         order++
         await this.setState({order})
-        // if (order === 'ascending') this.setState({order: 'descending'})
-        // if (order === 'descending') this.setState({order: ''})
-        // if (order === '') this.setState({order: 'ascending'})
       }
     }
     compare = (a, b) => {
-      const {sortOn, order} = this.state
+      const {sortOn} = this.state
       let valueA = a[sortOn] ? a[sortOn] : a.quote[sortOn]
       let valueB = b[sortOn] ? b[sortOn] : b.quote[sortOn]
-      let sortOrder = order % 3
+      let valIsString = typeof valueA === 'string'
       console.log('VALUE A', valueA)
       console.log('VALUE B', valueB)
-      console.log('COMPARE', valueA - valueB)
+      console.log('COMPARE', valueA < valueB)
+      if(valIsString) {
+        return this.compareStrings(valueA, valueB)
+      } else {
+        return this.compareNums(valueA, valueB)
+      }
+    }
+    compareStrings = (valueA, valueB) => {
+      let sortOrder = this.state.order % 3
+      if(sortOrder === 1) {
+        if (valueA < valueB) return -1
+        if (valueA > valueB) return 1
+      }
+      if(sortOrder === 2) {
+        if (valueA > valueB) return -1
+        if (valueA < valueB) return 1
+      }
+      return 0
+    }
+    compareNums = (valueA, valueB) => {
+      let sortOrder = this.state.order % 3
       if(sortOrder === 1) return valueA - valueB
       if(sortOrder === 2) return valueB - valueA
-      if(sortOrder === 0) return 0
+      return 0
     }
  
   render() {
