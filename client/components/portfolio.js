@@ -2,11 +2,19 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchPortfolioThunk, me} from '../store'
 import {Link} from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /**
  * COMPONENT
  */
 class Portfolio extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      sortOn: '',
+      order: 0
+    }
+  }
     async componentDidMount() {
       let stockSymbolsStr 
       let {stocks, loadStockQuotes,fetchUserData} = this.props
@@ -15,43 +23,92 @@ class Portfolio extends Component {
        await fetchUserData()
        //stockSymbolsStr is passed in to loadStockQuotes to be used for a batch load of quotes from the IEX API
        //That endpoint uses a comma delimited string of symbols, hence the .join(',')
-          stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
-          await loadStockQuotes(stockSymbolsStr)
-        }
+        stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
+        await loadStockQuotes(stockSymbolsStr)
+      }
+    }
+    handleSort = async (sortVal) => {
+      let {sortOn, order} = this.state
+      if (sortVal !== sortOn) {
+        await this.setState({sortOn: sortVal, order: 1})
+      } else {
+        order++
+        await this.setState({order})
+      }
+    }
+    compare = (a, b) => {
+      const {sortOn} = this.state
+      let valueA = a[sortOn] ? a[sortOn] : a.quote[sortOn]
+      let valueB = b[sortOn] ? b[sortOn] : b.quote[sortOn]
+      let valIsString = typeof valueA === 'string'
+      if(valIsString) {
+        return this.compareStrings(valueA, valueB)
+      } else {
+        return this.compareNums(valueA, valueB)
+      }
+    }
+    compareStrings = (valueA, valueB) => {
+      let sortOrder = this.state.order % 3
+      if(sortOrder === 1) {
+        if (valueA < valueB) return -1
+        if (valueA > valueB) return 1
+      }
+      if(sortOrder === 2) {
+        if (valueA > valueB) return -1
+        if (valueA < valueB) return 1
+      }
+      return 0
+    }
+    compareNums = (valueA, valueB) => {
+      let sortOrder = this.state.order % 3
+      if(sortOrder === 1) return valueB - valueA
+      if(sortOrder === 2) return valueA - valueB
+      return 0
     }
  
   render() {
       const {user, stocks, latestStockData} = this.props
+      const {sortOn, order} = this.state
+      const sortOrder = order % 3 > 0 ?  order % 3 === 2 ? <FontAwesomeIcon icon="sort-up" /> : <FontAwesomeIcon icon="sort-down" /> : null
+      let sortedStocks = []
+      if(latestStockData[stocks[0].stockSymbol]) {
+        sortedStocks = stocks.map(currStock => {
+        currStock.quote = this.props.latestStockData[currStock.stockSymbol].quote
+        /*
+        These come from the IEX API. They are the price of the stock at the open of the market from the day,
+        and the most recent price
+        */
+        let {latestPrice, open} = currStock.quote
+        //The current value of the users stock based on how many shares they own and the latest price
+        currStock.currValue = Number((currStock.numOfShares * latestPrice).toFixed(2))
+        //How much has the stock changed in value since the user bought the stock
+        currStock.totalChange = Number((currStock.currValue - currStock.totalInvested).toFixed(2))
+        //How much has the stock changed since the open
+        currStock.todaysChange = Number((latestPrice - open).toFixed(2))
+        return currStock
+      }).sort(this.compare)
+    }
       //If the user has no stocks/has just signed up, show the alternate div encouraging them to begin trading!
       return stocks && stocks.length  && latestStockData[stocks[0].stockSymbol] ? (
         <div className="portfolio-container">
           <h3>{user.fullName}'s Portfolio</h3>
           {/* This list is used as a header row for the portfolio */}
           <ul className="portfolio-header">
-            <li>Stock Symbol</li>
-            <li>Latest Price</li>
-            <li>Today's Gain/Loss</li>
-            <li>Total Gain/Loss</li>
-            <li>Current Value</li>
-            <li>Quantity</li>
-            <li>Cost Basis</li>
-            <li>Total Invested</li>
-            <li>Date of Purchase</li>
+            <li onClick={() => this.handleSort("stockSymbol")}>Stock Symbol {sortOn === "stockSymbol" ? <span>{sortOrder}</span> : null}</li>
+            <li onClick={() => this.handleSort("latestPrice")}>Latest Price {sortOn === "latestPrice" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss {sortOn === "todaysChange" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss {sortOn === "totalChange" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("currValue")}>Current Value {sortOn === "currValue" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("numOfShares")}>Quantity {sortOn === "numOfShares" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("costBasis")}>Cost Basis {sortOn === "costBasis" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("totalInvested")}>Total Invested {sortOn === "totalInvested" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("createdAt")}>Date of Purchase {sortOn === "createdAt" ? <span>{sortOrder}</span>: null}</li>
           </ul>
           {/* This is the meat of the portfolio. Here we loop over the stocks from the state,
            and check its most recent data that was loaded onto the state in the componentDidMount. */}
-          {stocks.map((currStock, idx) => {
-              /*
-              These come from the IEX API. They are the price of the stock at the open of the market from the day,
-              and the most recent price
-              */
-              let {latestPrice, open} = latestStockData[currStock.stockSymbol].quote
-              //The current value of the users stock based on how many shares they own and the latest price
-              let currValue = (currStock.numOfShares * latestPrice).toFixed(2)
-              //How much has the stock changed in value since the user bought the stock
-              let totalChange = (currValue - Number(currStock.totalInvested)).toFixed(2)
-              //How much has the stock changed since the open
-              let todaysChange = (latestPrice - open).toFixed(2)
+          {sortedStocks.map((currStock, idx) => {
+              let {currValue, totalChange, todaysChange, quote} = currStock
+              let {latestPrice, open} = quote
               /*
               ** These will be used for classNames to dynamically render color.
               ** If the change is positive, variable = 'gain',
@@ -63,7 +120,7 @@ class Portfolio extends Component {
             return (
               <Link to={`stock_info/${currStock.stockSymbol}`} key={currStock.id}>
                 <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} >
-                  <li>{currStock.stockSymbol}</li>
+                  <li name='stockSymbol' value={currStock.stockSymbol} >{currStock.stockSymbol}</li>
                   <li className={todaysChangeColor}>${latestPrice.toFixed(2)}<br/>${todaysChange}</li>
                   {/* 
                   Change in value for this stock in the users portfolio for the day, and the percent change
@@ -94,6 +151,22 @@ class Portfolio extends Component {
       )
   }
 }
+
+// const portfolioHeaders = () => {
+//   return (
+//     <ul className="portfolio-header">
+//     <li onClick={() => this.handleSort("stockSymbol")}>Stock Symbol {sortOn === "stockSymbol" ? <span>{sortOrder}</span> : null}</li>
+//     <li onClick={() => this.handleSort("latestPrice")}>Latest Price {sortOn === "latestPrice" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss {sortOn === "todaysChange" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss {sortOn === "totalChange" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("currValue")}>Current Value {sortOn === "currValue" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("numOfShares")}>Quantity {sortOn === "numOfShares" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("costBasis")}>Cost Basis {sortOn === "costBasis" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("totalInvested")}>Total Invested {sortOn === "totalInvested" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("createdAt")}>Date of Purchase {sortOn === "createdAt" ? <span>{sortOrder}</span>: null}</li>
+//   </ul>
+//   )
+// }
 
 /**
  * CONTAINER
