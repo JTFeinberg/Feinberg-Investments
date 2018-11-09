@@ -37,11 +37,16 @@ class Portfolio extends Component {
         // if (order === 'descending') this.setState({order: ''})
         // if (order === '') this.setState({order: 'ascending'})
       }
-      console.log(this.state)
     }
-    // compare = (a, b) => {
-    //   return a[value] - b[value]
-    // }
+    compare = (a, b) => {
+      const {sortOn, order} = this.state
+      let valueA = a[sortOn] ? a[sortOn] : a.quote[sortOn]
+      let valueB = b[sortOn] ? b[sortOn] : b.quote[sortOn]
+      let sortOrder = order % 3
+      if(sortOrder === 1) return valueA - valueB
+      if(sortOrder === 2) return valueB - valueA
+      if(sortOrder === 0) return 0
+    }
  
   render() {
       const {user, stocks, latestStockData} = this.props
