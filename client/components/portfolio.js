@@ -24,9 +24,6 @@ class Portfolio extends Component {
        //That endpoint uses a comma delimited string of symbols, hence the .join(',')
         stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
         await loadStockQuotes(stockSymbolsStr)
-        stocks.forEach(currStock => {
-          currStock.quote = this.props.latestStockData[currStock.stockSymbol].quote
-        })
       }
     }
     handleSort = async (sortVal) => {
@@ -48,6 +45,12 @@ class Portfolio extends Component {
  
   render() {
       const {user, stocks, latestStockData} = this.props
+      if(latestStockData[stocks[0].stockSymbol]) {
+        stocks.forEach(currStock => {
+        currStock.quote = this.props.latestStockData[currStock.stockSymbol].quote
+      })
+    }
+       console.log(stocks)
       //If the user has no stocks/has just signed up, show the alternate div encouraging them to begin trading!
       return stocks && stocks.length  && latestStockData[stocks[0].stockSymbol] ? (
         <div className="portfolio-container">
@@ -71,7 +74,7 @@ class Portfolio extends Component {
               These come from the IEX API. They are the price of the stock at the open of the market from the day,
               and the most recent price
               */
-              let {latestPrice, open} = latestStockData[currStock.stockSymbol].quote
+              let {latestPrice, open} = currStock.quote
               //The current value of the users stock based on how many shares they own and the latest price
               let currValue = (currStock.numOfShares * latestPrice).toFixed(2)
               //How much has the stock changed in value since the user bought the stock
