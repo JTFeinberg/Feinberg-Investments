@@ -11,7 +11,7 @@ class Portfolio extends Component {
     super(props)
     this.state = {
       sortOn: '',
-      order: ''
+      order: 0
     }
   }
     async componentDidMount() {
@@ -25,6 +25,18 @@ class Portfolio extends Component {
           stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
           await loadStockQuotes(stockSymbolsStr)
         }
+    }
+    handleSort = (sortVal) => {
+      let {sortOn, order} = this.state
+      if (sortVal !== sortOn) {
+        this.setState({sortOn: sortVal, order: 1})
+      } else {
+        order++
+        this.setState({order})
+        // if (order === 'ascending') this.setState({order: 'descending'})
+        // if (order === 'descending') this.setState({order: ''})
+        // if (order === '') this.setState({order: 'ascending'})
+      }
     }
     // compare = (a, b) => {
     //   return a[value] - b[value]
