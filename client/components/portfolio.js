@@ -60,8 +60,8 @@ class Portfolio extends Component {
     }
     compareNums = (valueA, valueB) => {
       let sortOrder = this.state.order % 3
-      if(sortOrder === 1) return valueA - valueB
-      if(sortOrder === 2) return valueB - valueA
+      if(sortOrder === 1) return valueB - valueA
+      if(sortOrder === 2) return valueA - valueB
       return 0
     }
  
