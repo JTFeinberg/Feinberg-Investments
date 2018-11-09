@@ -74,6 +74,10 @@ class Portfolio extends Component {
       if(latestStockData[stocks[0].stockSymbol]) {
         sortedStocks = stocks.map(currStock => {
         currStock.quote = this.props.latestStockData[currStock.stockSymbol].quote
+        /*
+        These come from the IEX API. They are the price of the stock at the open of the market from the day,
+        and the most recent price
+        */
         let {latestPrice, open} = currStock.quote
         //The current value of the users stock based on how many shares they own and the latest price
         currStock.currValue = Number((currStock.numOfShares * latestPrice).toFixed(2))
@@ -104,17 +108,8 @@ class Portfolio extends Component {
           {/* This is the meat of the portfolio. Here we loop over the stocks from the state,
            and check its most recent data that was loaded onto the state in the componentDidMount. */}
           {sortedStocks.map((currStock, idx) => {
-              /*
-              These come from the IEX API. They are the price of the stock at the open of the market from the day,
-              and the most recent price
-              */
-              let {latestPrice, open} = currStock.quote
-              //The current value of the users stock based on how many shares they own and the latest price
-              let currValue = (currStock.numOfShares * latestPrice).toFixed(2)
-              //How much has the stock changed in value since the user bought the stock
-              let totalChange = (currValue - Number(currStock.totalInvested)).toFixed(2)
-              //How much has the stock changed since the open
-              let todaysChange = (latestPrice - open).toFixed(2)
+              let {currValue, totalChange, todaysChange, quote} = currStock
+              let {latestPrice, open} = quote
               /*
               ** These will be used for classNames to dynamically render color.
               ** If the change is positive, variable = 'gain',
