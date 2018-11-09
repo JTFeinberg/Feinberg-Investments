@@ -22,9 +22,12 @@ class Portfolio extends Component {
        await fetchUserData()
        //stockSymbolsStr is passed in to loadStockQuotes to be used for a batch load of quotes from the IEX API
        //That endpoint uses a comma delimited string of symbols, hence the .join(',')
-          stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
-          await loadStockQuotes(stockSymbolsStr)
-        }
+        stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
+        await loadStockQuotes(stockSymbolsStr)
+        stocks.forEach(currStock => {
+          currStock.quote = this.props.latestStockData[currStock.stockSymbol].quote
+        })
+      }
     }
     handleSort = async (sortVal) => {
       let {sortOn, order} = this.state
