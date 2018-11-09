@@ -7,6 +7,13 @@ import {Link} from 'react-router-dom'
  * COMPONENT
  */
 class Portfolio extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      sortOn: '',
+      order: ''
+    }
+  }
     async componentDidMount() {
       let stockSymbolsStr 
       let {stocks, loadStockQuotes,fetchUserData} = this.props
@@ -19,6 +26,9 @@ class Portfolio extends Component {
           await loadStockQuotes(stockSymbolsStr)
         }
     }
+    // compare = (a, b) => {
+    //   return a[value] - b[value]
+    // }
  
   render() {
       const {user, stocks, latestStockData} = this.props
