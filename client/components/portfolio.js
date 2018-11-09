@@ -69,8 +69,7 @@ class Portfolio extends Component {
   render() {
       const {user, stocks, latestStockData} = this.props
       const {sortOn, order} = this.state
-      const ascending = <FontAwesomeIcon icon="sort-up" />
-      const descending = <FontAwesomeIcon icon="sort-down" />
+      const sortOrder = order % 3 > 0 ?  order % 3 === 2 ? <FontAwesomeIcon icon="sort-up" /> : <FontAwesomeIcon icon="sort-down" /> : null
       let sortedStocks = []
       if(latestStockData[stocks[0].stockSymbol]) {
         sortedStocks = stocks.map(currStock => {
@@ -95,15 +94,15 @@ class Portfolio extends Component {
           <h3>{user.fullName}'s Portfolio</h3>
           {/* This list is used as a header row for the portfolio */}
           <ul className="portfolio-header">
-      <li key="stockSymbol" onClick={() => this.handleSort("stockSymbol")}>Stock Symbol {sortOn !== "stockSymbol" ? (<span hidden={order % 3 !== 1 }>{ascending}</span>) (<span hidden={order % 3 !== 2 }>{descending}</span>) : null}</li>
-            <li onClick={() => this.handleSort("latestPrice")}>Latest Price {sortOn !== "latestPrice" ? (<span hidden={order % 3 !== 1 }>{descending}</span>) (<span hidden={order % 3 !== 2 }>{ascending}</span>): null}</li>
-            <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss {sortOn !== "todaysChange" ? (<span hidden={order % 3 !== 1 }>{descending}</span>) (<span hidden={order % 3 !== 2 }>{ascending}</span>): null}</li>
-            <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss {sortOn !== "totalChange" ? (<span hidden={order % 3 !== 1 }>{descending}</span>) (<span hidden={order % 3 !== 2 }>{ascending}</span>): null}</li>
-            <li onClick={() => this.handleSort("currValue")}>Current Value {sortOn !== "currValue" ? (<span hidden={order % 3 !== 1 }>{descending}</span>) (<span hidden={order % 3 !== 2 }>{ascending}</span>): null}</li>
-            <li onClick={() => this.handleSort("numOfShares")}>Quantity {sortOn !== "numOfShares" ? (<span hidden={order % 3 !== 1 }>{descending}</span>) (<span hidden={order % 3 !== 2 }>{ascending}</span>): null}</li>
-            <li onClick={() => this.handleSort("costBasis")}>Cost Basis {sortOn !== "costBasis" ? (<span hidden={order % 3 !== 1 }>{descending}</span>) (<span hidden={order % 3 !== 2 }>{ascending}</span>): null}</li>
-            <li onClick={() => this.handleSort("totalInvested")}>Total Invested {sortOn !== "totalInvested" ? (<span hidden={order % 3 !== 1 }>{descending}</span>) (<span hidden={order % 3 !== 2 }>{ascending}</span>): null}</li>
-            <li onClick={() => this.handleSort("createdAt")}>Date of Purchase {sortOn !== "createdAt" ? (<span hidden={order % 3 !== 1 }>{descending}</span>) (<span hidden={order % 3 !== 2 }>{ascending}</span>): null}</li>
+            <li onClick={() => this.handleSort("stockSymbol")}>Stock Symbol {sortOn === "stockSymbol" ? <span>{sortOrder}</span> : null}</li>
+            <li onClick={() => this.handleSort("latestPrice")}>Latest Price {sortOn === "latestPrice" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss {sortOn === "todaysChange" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss {sortOn === "totalChange" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("currValue")}>Current Value {sortOn === "currValue" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("numOfShares")}>Quantity {sortOn === "numOfShares" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("costBasis")}>Cost Basis {sortOn === "costBasis" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("totalInvested")}>Total Invested {sortOn === "totalInvested" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("createdAt")}>Date of Purchase {sortOn === "createdAt" ? <span>{sortOrder}</span>: null}</li>
           </ul>
           {/* This is the meat of the portfolio. Here we loop over the stocks from the state,
            and check its most recent data that was loaded onto the state in the componentDidMount. */}
@@ -156,16 +155,16 @@ class Portfolio extends Component {
 // const portfolioHeaders = () => {
 //   return (
 //     <ul className="portfolio-header">
-//             <li key="stockSymbol" onClick={() => this.handleSort("stockSymbol")}>Stock Symbol <span hidden={sortOn !== "stockSymbol" || order % 3 !== 1 }>{ascending}</span><span hidden={sortOn !== "stockSymbol" || order % 3 !== 2 }>{descending}</span></li>
-//             <li onClick={() => this.handleSort("latestPrice")}>Latest Price <span hidden={sortOn !== "latestPrice" || order % 3 !== 1 }>{descending}</span><span hidden={sortOn !== "latestPrice" || order % 3 !== 2 }>{ascending}</span></li>
-//             <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss <span hidden={sortOn !== "todaysChange" || order % 3 !== 1 }>{descending}</span><span hidden={sortOn !== "todaysChange" || order % 3 !== 2 }>{ascending}</span></li>
-//             <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss <span hidden={sortOn !== "totalChange" || order % 3 !== 1 }>{descending}</span><span hidden={sortOn !== "totalChange" || order % 3 !== 2 }>{ascending}</span></li>
-//             <li onClick={() => this.handleSort("currValue")}>Current Value <span hidden={sortOn !== "currValue" || order % 3 !== 1 }>{descending}</span><span hidden={sortOn !== "currValue" || order % 3 !== 2 }>{ascending}</span></li>
-//             <li onClick={() => this.handleSort("numOfShares")}>Quantity <span hidden={sortOn !== "numOfShares" || order % 3 !== 1 }>{descending}</span><span hidden={sortOn !== "numOfShares" || order % 3 !== 2 }>{ascending}</span></li>
-//             <li onClick={() => this.handleSort("costBasis")}>Cost Basis <span hidden={sortOn !== "costBasis" || order % 3 !== 1 }>{descending}</span><span hidden={sortOn !== "costBasis" || order % 3 !== 2 }>{ascending}</span></li>
-//             <li onClick={() => this.handleSort("totalInvested")}>Total Invested <span hidden={sortOn !== "totalInvested" || order % 3 !== 1 }>{descending}</span><span hidden={sortOn !== "totalInvested" || order % 3 !== 2 }>{ascending}</span></li>
-//             <li onClick={() => this.handleSort("createdAt")}>Date of Purchase <span hidden={sortOn !== "createdAt" || order % 3 !== 1 }>{descending}</span><span hidden={sortOn !== "createdAt" || order % 3 !== 2 }>{ascending}</span></li>
-//           </ul>
+//     <li onClick={() => this.handleSort("stockSymbol")}>Stock Symbol {sortOn === "stockSymbol" ? <span>{sortOrder}</span> : null}</li>
+//     <li onClick={() => this.handleSort("latestPrice")}>Latest Price {sortOn === "latestPrice" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss {sortOn === "todaysChange" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss {sortOn === "totalChange" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("currValue")}>Current Value {sortOn === "currValue" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("numOfShares")}>Quantity {sortOn === "numOfShares" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("costBasis")}>Cost Basis {sortOn === "costBasis" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("totalInvested")}>Total Invested {sortOn === "totalInvested" ? <span>{sortOrder}</span>: null}</li>
+//     <li onClick={() => this.handleSort("createdAt")}>Date of Purchase {sortOn === "createdAt" ? <span>{sortOrder}</span>: null}</li>
+//   </ul>
 //   )
 // }
 
