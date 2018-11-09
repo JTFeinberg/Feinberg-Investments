@@ -193,7 +193,10 @@ hr {
 .portfolio-container .portfolio-header {
   font-weight: 700;
 }
-
+.portfolio-container .portfolio-header svg {
+  position: relative;
+  left: 3px;
+}
 /* Transaction Histroy
 --------------------------------*/
 .transactions-container {
