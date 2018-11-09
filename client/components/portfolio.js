@@ -26,17 +26,18 @@ class Portfolio extends Component {
           await loadStockQuotes(stockSymbolsStr)
         }
     }
-    handleSort = (sortVal) => {
+    handleSort = async (sortVal) => {
       let {sortOn, order} = this.state
       if (sortVal !== sortOn) {
-        this.setState({sortOn: sortVal, order: 1})
+        await this.setState({sortOn: sortVal, order: 1})
       } else {
         order++
-        this.setState({order})
+        await this.setState({order})
         // if (order === 'ascending') this.setState({order: 'descending'})
         // if (order === 'descending') this.setState({order: ''})
         // if (order === '') this.setState({order: 'ascending'})
       }
+      console.log(this.state)
     }
     // compare = (a, b) => {
     //   return a[value] - b[value]
@@ -50,15 +51,15 @@ class Portfolio extends Component {
           <h3>{user.fullName}'s Portfolio</h3>
           {/* This list is used as a header row for the portfolio */}
           <ul className="portfolio-header">
-            <li>Stock Symbol</li>
-            <li>Latest Price</li>
-            <li>Today's Gain/Loss</li>
-            <li>Total Gain/Loss</li>
-            <li>Current Value</li>
-            <li>Quantity</li>
-            <li>Cost Basis</li>
-            <li>Total Invested</li>
-            <li>Date of Purchase</li>
+            <li onClick={() => this.handleSort("stockSymbol")}>Stock Symbol</li>
+            <li onClick={() => this.handleSort("latestPrice")}>Latest Price</li>
+            <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss</li>
+            <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss</li>
+            <li onClick={() => this.handleSort("currValue")}>Current Value</li>
+            <li onClick={() => this.handleSort("numOfShares")}>Quantity</li>
+            <li onClick={() => this.handleSort("costBasis")}>Cost Basis</li>
+            <li onClick={() => this.handleSort("totalInvested")}>Total Invested</li>
+            <li onClick={() => this.handleSort("createdAt")}>Date of Purchase</li>
           </ul>
           {/* This is the meat of the portfolio. Here we loop over the stocks from the state,
            and check its most recent data that was loaded onto the state in the componentDidMount. */}
@@ -85,7 +86,7 @@ class Portfolio extends Component {
             return (
               <Link to={`stock_info/${currStock.stockSymbol}`} key={currStock.id}>
                 <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} >
-                  <li>{currStock.stockSymbol}</li>
+                  <li name='stockSymbol' value={currStock.stockSymbol} >{currStock.stockSymbol}</li>
                   <li className={todaysChangeColor}>${latestPrice.toFixed(2)}<br/>${todaysChange}</li>
                   {/* 
                   Change in value for this stock in the users portfolio for the day, and the percent change
