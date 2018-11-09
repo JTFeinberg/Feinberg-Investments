@@ -6,6 +6,9 @@ import history from './history'
 import store from './store'
 import App from './app'
 export const IEX_API = 'https://api.iextrading.com/1.0'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
+library.add(faSortUp, faSortDown)
 
 
 ReactDOM.render(
