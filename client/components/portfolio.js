@@ -43,6 +43,9 @@ class Portfolio extends Component {
       let valueA = a[sortOn] ? a[sortOn] : a.quote[sortOn]
       let valueB = b[sortOn] ? b[sortOn] : b.quote[sortOn]
       let sortOrder = order % 3
+      console.log('VALUE A', valueA)
+      console.log('VALUE B', valueB)
+      console.log('COMPARE', valueA - valueB)
       if(sortOrder === 1) return valueA - valueB
       if(sortOrder === 2) return valueB - valueA
       if(sortOrder === 0) return 0
@@ -50,12 +53,14 @@ class Portfolio extends Component {
  
   render() {
       const {user, stocks, latestStockData} = this.props
+      let sortedStocks = []
       if(latestStockData[stocks[0].stockSymbol]) {
-        stocks.forEach(currStock => {
+        sortedStocks = stocks.map(currStock => {
         currStock.quote = this.props.latestStockData[currStock.stockSymbol].quote
-      })
+        return currStock
+      }).sort(this.compare)
     }
-       console.log(stocks)
+       console.log(sortedStocks)
       //If the user has no stocks/has just signed up, show the alternate div encouraging them to begin trading!
       return stocks && stocks.length  && latestStockData[stocks[0].stockSymbol] ? (
         <div className="portfolio-container">
@@ -74,7 +79,7 @@ class Portfolio extends Component {
           </ul>
           {/* This is the meat of the portfolio. Here we loop over the stocks from the state,
            and check its most recent data that was loaded onto the state in the componentDidMount. */}
-          {stocks.map((currStock, idx) => {
+          {sortedStocks.map((currStock, idx) => {
               /*
               These come from the IEX API. They are the price of the stock at the open of the market from the day,
               and the most recent price
