@@ -94,7 +94,7 @@ class Portfolio extends Component {
           <h3>{user.fullName}'s Portfolio</h3>
           {/* This list is used as a header row for the portfolio */}
           <ul className="portfolio-header">
-            <li onClick={() => this.handleSort("stockSymbol")}>Stock Symbol {sortOn === "stockSymbol" ? <span>{sortOrder}</span> : null}</li>
+            <li onClick={() => this.handleSort("stockSymbol")}>Stock Symbol <span hidden={sortOn !== "stockSymbol"}className="sort-arrow">{sortOrder}</span></li>
             <li onClick={() => this.handleSort("latestPrice")}>Latest Price {sortOn === "latestPrice" ? <span>{sortOrder}</span>: null}</li>
             <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss {sortOn === "todaysChange" ? <span>{sortOrder}</span>: null}</li>
             <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss {sortOn === "totalChange" ? <span>{sortOrder}</span>: null}</li>
