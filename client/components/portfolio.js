@@ -93,52 +93,13 @@ class Portfolio extends Component {
         <div className="portfolio-container">
           <h3>{user.fullName}'s Portfolio</h3>
           {/* This list is used as a header row for the portfolio */}
-          <ul className="portfolio-header">
-            <li onClick={() => this.handleSort("stockSymbol")}>Stock Symbol {sortOn === "stockSymbol" ? <span>{sortOrder}</span> : null}</li>
-            <li onClick={() => this.handleSort("latestPrice")}>Latest Price {sortOn === "latestPrice" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss {sortOn === "todaysChange" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss {sortOn === "totalChange" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("currValue")}>Current Value {sortOn === "currValue" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("numOfShares")}>Quantity {sortOn === "numOfShares" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("costBasis")}>Cost Basis {sortOn === "costBasis" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("totalInvested")}>Total Invested {sortOn === "totalInvested" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("createdAt")}>Date of Purchase {sortOn === "createdAt" ? <span>{sortOrder}</span>: null}</li>
-          </ul>
+          <PortfolioHeaders handleSort={this.handleSort} sortOn={sortOn} sortOrder={sortOrder}/>
           {/* This is the meat of the portfolio. Here we loop over the stocks from the state,
            and check its most recent data that was loaded onto the state in the componentDidMount. */}
           {sortedStocks.map((currStock, idx) => {
-              let {currValue, totalChange, todaysChange, quote} = currStock
-              let {latestPrice, open} = quote
-              /*
-              ** These will be used for classNames to dynamically render color.
-              ** If the change is positive, variable = 'gain',
-              ** If negative variable = 'loss', 
-              ** Otherwise it equals 'no-change'
-              */
-              let todaysChangeColor = todaysChange > 0 ? 'gain' : todaysChange < 0 ? 'loss' : 'no-change'
-              let totalChangeColor = totalChange > 0 ? 'gain' : totalChange < 0 ? 'loss' : 'no-change'
             return (
               <Link to={`stock_info/${currStock.stockSymbol}`} key={currStock.id}>
-                <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} >
-                  <li name='stockSymbol' value={currStock.stockSymbol} >{currStock.stockSymbol}</li>
-                  <li className={todaysChangeColor}>${latestPrice.toFixed(2)}<br/>${todaysChange}</li>
-                  {/* 
-                  Change in value for this stock in the users portfolio for the day, and the percent change
-                  Percent change is (B - A)/A * 100
-                   */}
-                  <li className={todaysChangeColor}>${(todaysChange * currStock.numOfShares).toFixed(2)}<br/>{(todaysChange / open * 100).toFixed(2)}%</li>
-                  {/* 
-                  Change in value for this stock in the users portfolio since the stock was purchased, and the percent change
-                  Percent change is (B - A)/A * 100
-                   */}
-                  <li className={totalChangeColor}>${totalChange}<br/>{(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%</li>
-                  <li>{`$${currValue}`}</li>
-                  <li>{`${currStock.numOfShares} shares`}</li>
-                  {/* Cost basis is calculated as the users total invesment/# of shares owned */}
-                  <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>
-                  <li>{`$${Number(currStock.totalInvested).toFixed(2)}`}</li>
-                  <li>{`${currStock.createdAt.split('T')[0]}`}</li>
-                </ul>
+                <PortfolioStocks idx={idx} currStock={currStock} />
               </Link>
             )
           })}
@@ -152,21 +113,61 @@ class Portfolio extends Component {
   }
 }
 
-// const portfolioHeaders = () => {
-//   return (
-//     <ul className="portfolio-header">
-//     <li onClick={() => this.handleSort("stockSymbol")}>Stock Symbol {sortOn === "stockSymbol" ? <span>{sortOrder}</span> : null}</li>
-//     <li onClick={() => this.handleSort("latestPrice")}>Latest Price {sortOn === "latestPrice" ? <span>{sortOrder}</span>: null}</li>
-//     <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss {sortOn === "todaysChange" ? <span>{sortOrder}</span>: null}</li>
-//     <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss {sortOn === "totalChange" ? <span>{sortOrder}</span>: null}</li>
-//     <li onClick={() => this.handleSort("currValue")}>Current Value {sortOn === "currValue" ? <span>{sortOrder}</span>: null}</li>
-//     <li onClick={() => this.handleSort("numOfShares")}>Quantity {sortOn === "numOfShares" ? <span>{sortOrder}</span>: null}</li>
-//     <li onClick={() => this.handleSort("costBasis")}>Cost Basis {sortOn === "costBasis" ? <span>{sortOrder}</span>: null}</li>
-//     <li onClick={() => this.handleSort("totalInvested")}>Total Invested {sortOn === "totalInvested" ? <span>{sortOrder}</span>: null}</li>
-//     <li onClick={() => this.handleSort("createdAt")}>Date of Purchase {sortOn === "createdAt" ? <span>{sortOrder}</span>: null}</li>
-//   </ul>
-//   )
-// }
+
+const PortfolioHeaders = ({handleSort, sortOn, sortOrder}) => {
+  return (
+    <ul className="portfolio-header">
+      <li onClick={() => handleSort("stockSymbol")}>Stock Symbol <span hidden={sortOn !== "stockSymbol"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("latestPrice")}>Latest Price <span hidden={sortOn !== "latestPrice"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("todaysChange")}>Today's Gain/Loss <span hidden={sortOn !== "todaysChange"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("totalChange")}>Total Gain/Loss <span hidden={sortOn !== "totalChange"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("currValue")}>Current Value <span hidden={sortOn !== "currValue"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("numOfShares")}>Quantity <span hidden={sortOn !== "numOfShares"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("costBasis")}>Cost Basis <span hidden={sortOn !== "costBasis"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("totalInvested")}>Total Invested <span hidden={sortOn !== "totalInvested"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("createdAt")}>Date of Purchase <span hidden={sortOn !== "createdAt"}>{sortOrder}</span></li>
+    </ul>
+  )
+}
+
+/**
+ * CHILD COMPONENTS
+ */
+const PortfolioStocks = ({idx, currStock}) => {
+  let {currValue, totalChange, todaysChange, quote} = currStock
+  let {latestPrice, open} = quote
+  /*
+  ** These will be used for classNames to dynamically render color.
+  ** If the change is positive, variable = 'gain',
+  ** If negative variable = 'loss', 
+  ** Otherwise it equals 'no-change'
+  */
+  let todaysChangeColor = todaysChange > 0 ? 'gain' : todaysChange < 0 ? 'loss' : 'no-change'
+  let totalChangeColor = totalChange > 0 ? 'gain' : totalChange < 0 ? 'loss' : 'no-change'
+  return (
+    <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} >
+      <li name='stockSymbol' value={currStock.stockSymbol} >{currStock.stockSymbol}</li>
+      <li className={todaysChangeColor}>${latestPrice.toFixed(2)}<br/>${todaysChange}</li>
+      {/* 
+      Change in value for this stock in the users portfolio for the day, and the percent change
+      Percent change is (B - A)/A * 100
+        */}
+      <li className={todaysChangeColor}>${(todaysChange * currStock.numOfShares).toFixed(2)}<br/>{(todaysChange / open * 100).toFixed(2)}%</li>
+      {/* 
+      Change in value for this stock in the users portfolio since the stock was purchased, and the percent change
+      Percent change is (B - A)/A * 100
+        */}
+      <li className={totalChangeColor}>${totalChange}<br/>{(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%</li>
+      <li>{`$${currValue}`}</li>
+      <li>{`${currStock.numOfShares} shares`}</li>
+      {/* Cost basis is calculated as the users total invesment/# of shares owned */}
+      <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>
+      <li>{`$${Number(currStock.totalInvested).toFixed(2)}`}</li>
+      <li>{`${currStock.createdAt.split('T')[0]}`}</li>
+    </ul>
+  )
+}
+
 
 /**
  * CONTAINER
