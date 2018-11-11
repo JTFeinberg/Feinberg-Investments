@@ -94,15 +94,15 @@ class Portfolio extends Component {
           <h3>{user.fullName}'s Portfolio</h3>
           {/* This list is used as a header row for the portfolio */}
           <ul className="portfolio-header">
-            <li onClick={() => this.handleSort("stockSymbol")}>Stock Symbol <span hidden={sortOn !== "stockSymbol"}className="sort-arrow">{sortOrder}</span></li>
-            <li onClick={() => this.handleSort("latestPrice")}>Latest Price {sortOn === "latestPrice" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss {sortOn === "todaysChange" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss {sortOn === "totalChange" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("currValue")}>Current Value {sortOn === "currValue" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("numOfShares")}>Quantity {sortOn === "numOfShares" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("costBasis")}>Cost Basis {sortOn === "costBasis" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("totalInvested")}>Total Invested {sortOn === "totalInvested" ? <span>{sortOrder}</span>: null}</li>
-            <li onClick={() => this.handleSort("createdAt")}>Date of Purchase {sortOn === "createdAt" ? <span>{sortOrder}</span>: null}</li>
+            <li onClick={() => this.handleSort("stockSymbol")}>Stock Symbol <span hidden={sortOn !== "stockSymbol"}>{sortOrder}</span></li>
+            <li onClick={() => this.handleSort("latestPrice")}>Latest Price <span hidden={sortOn !== "latestPrice"}>{sortOrder}</span></li>
+            <li onClick={() => this.handleSort("todaysChange")}>Today's Gain/Loss <span hidden={sortOn !== "todaysChange"}>{sortOrder}</span></li>
+            <li onClick={() => this.handleSort("totalChange")}>Total Gain/Loss <span hidden={sortOn !== "totalChange"}>{sortOrder}</span></li>
+            <li onClick={() => this.handleSort("currValue")}>Current Value <span hidden={sortOn !== "currValue"}>{sortOrder}</span></li>
+            <li onClick={() => this.handleSort("numOfShares")}>Quantity <span hidden={sortOn !== "numOfShares"}>{sortOrder}</span></li>
+            <li onClick={() => this.handleSort("costBasis")}>Cost Basis <span hidden={sortOn !== "costBasis"}>{sortOrder}</span></li>
+            <li onClick={() => this.handleSort("totalInvested")}>Total Invested <span hidden={sortOn !== "totalInvested"}>{sortOrder}</span></li>
+            <li onClick={() => this.handleSort("createdAt")}>Date of Purchase <span hidden={sortOn !== "createdAt"}>{sortOrder}</span></li>
           </ul>
           {/* This is the meat of the portfolio. Here we loop over the stocks from the state,
            and check its most recent data that was loaded onto the state in the componentDidMount. */}
