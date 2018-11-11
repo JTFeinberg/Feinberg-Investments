@@ -97,19 +97,9 @@ class Portfolio extends Component {
           {/* This is the meat of the portfolio. Here we loop over the stocks from the state,
            and check its most recent data that was loaded onto the state in the componentDidMount. */}
           {sortedStocks.map((currStock, idx) => {
-              let {currValue, totalChange, todaysChange, quote} = currStock
-              let {latestPrice, open} = quote
-              /*
-              ** These will be used for classNames to dynamically render color.
-              ** If the change is positive, variable = 'gain',
-              ** If negative variable = 'loss', 
-              ** Otherwise it equals 'no-change'
-              */
-              let todaysChangeColor = todaysChange > 0 ? 'gain' : todaysChange < 0 ? 'loss' : 'no-change'
-              let totalChangeColor = totalChange > 0 ? 'gain' : totalChange < 0 ? 'loss' : 'no-change'
             return (
               <Link to={`stock_info/${currStock.stockSymbol}`} key={currStock.id}>
-                <PortfolioStocks idx={idx} currStock={currStock} todaysChangeColor={todaysChangeColor} latestPrice={latestPrice} open={open} todaysChange={todaysChange} totalChangeColor={totalChangeColor} totalChange={totalChange} currValue={currValue} />
+                <PortfolioStocks idx={idx} currStock={currStock} />
               </Link>
             )
           })}
@@ -139,7 +129,17 @@ const PortfolioHeaders = ({handleSort, sortOn, sortOrder}) => {
   )
 }
 
-const PortfolioStocks = ({idx, currStock, todaysChangeColor, latestPrice, open, todaysChange, totalChangeColor, totalChange, currValue}) => {
+const PortfolioStocks = ({idx, currStock}) => {
+  let {currValue, totalChange, todaysChange, quote} = currStock
+  let {latestPrice, open} = quote
+  /*
+  ** These will be used for classNames to dynamically render color.
+  ** If the change is positive, variable = 'gain',
+  ** If negative variable = 'loss', 
+  ** Otherwise it equals 'no-change'
+  */
+  let todaysChangeColor = todaysChange > 0 ? 'gain' : todaysChange < 0 ? 'loss' : 'no-change'
+  let totalChangeColor = totalChange > 0 ? 'gain' : totalChange < 0 ? 'loss' : 'no-change'
   return (
     <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} >
       <li name='stockSymbol' value={currStock.stockSymbol} >{currStock.stockSymbol}</li>
