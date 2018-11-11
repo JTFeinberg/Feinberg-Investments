@@ -78,7 +78,7 @@ class Portfolio extends Component {
         )
       ) : null
     let sortedStocks = []
-    if (stocks && stocks.length && latestStockData[stocks[0].stockSymbol]) {
+    if (stocks.length && latestStockData[stocks[0].stockSymbol]) {
       sortedStocks = stocks
         .map(currStock => {
           currStock.quote = this.props.latestStockData[
@@ -104,7 +104,7 @@ class Portfolio extends Component {
         .sort(this.compare)
     }
     //If the user has no stocks/has just signed up, show the alternate div encouraging them to begin trading!
-    return stocks && stocks.length && latestStockData[stocks[0].stockSymbol] ? (
+    return stocks.length && latestStockData[stocks[0].stockSymbol] ? (
       <div className="portfolio-container">
         <h3>{user.fullName}'s Portfolio</h3>
         {/* This list is used as a header row for the portfolio */}
