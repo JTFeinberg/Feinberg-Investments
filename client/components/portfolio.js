@@ -17,10 +17,8 @@ class Portfolio extends Component {
   }
     async componentDidMount() {
       let stockSymbolsStr 
-      let {stocks, loadStockQuotes,fetchUserData} = this.props
+      let {stocks, loadStockQuotes} = this.props
       if(stocks.length) {
-        //fetchUserData is for updating the users portfolio to reflect recent transactions 
-       await fetchUserData()
        //stockSymbolsStr is passed in to loadStockQuotes to be used for a batch load of quotes from the IEX API
        //That endpoint uses a comma delimited string of symbols, hence the .join(',')
         stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
