@@ -16,10 +16,6 @@ class TradeForm extends Component {
       isStockDirty: false
     }
   }
-  componentDidMount() {
-    //Make sure we have the most recent balance for the user
-    this.props.fetchUserData()
-  }
 
   handleChange = async ({target}) => {
     let {name, value} = target
@@ -88,7 +84,12 @@ class TradeForm extends Component {
             onInput={this.isInteger}
             placeholder="Qty of Shares"
           />
-          <select name="action" value={action} label="Action" onChange={this.handleChange}>
+          <select
+            name="action"
+            value={action}
+            label="Action"
+            onChange={this.handleChange}
+          >
             <option value="BUY">BUY</option>
             <option value="SELL">SELL</option>
           </select>
@@ -96,8 +97,8 @@ class TradeForm extends Component {
             id="trade-submit"
             type="submit"
             value="Submit"
-            // disable the submit button if the stock symbol is invalid, 
-            //if nothing is typed, if no shares are entered, 
+            // disable the submit button if the stock symbol is invalid,
+            //if nothing is typed, if no shares are entered,
             //or is the user can't afford the purchase
             disabled={
               !isValidStock ||
