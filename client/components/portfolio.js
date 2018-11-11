@@ -67,7 +67,7 @@ class Portfolio extends Component {
     }
  
   render() {
-      const {user, stocks, latestStockData} = this.props
+      const {user, stocks, latestStockData, transaction} = this.props
       const {sortOn, order} = this.state
       const sortOrder = order % 3 > 0 ?  order % 3 === 2 ? <FontAwesomeIcon icon="sort-up" /> : <FontAwesomeIcon icon="sort-down" /> : null
       let sortedStocks = []
@@ -176,7 +176,8 @@ const mapStateToProps = state => {
   return {
     user: state.user,
     stocks: state.user.portfolios,
-    latestStockData: state.portfolio
+    latestStockData: state.portfolio,
+    transaction: state.trade
   }
 }
 

@@ -1,13 +1,22 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchTradedStockThunk, me} from '../store'
+import {fetchTradedStockThunk, me, fetchPortfolioThunk} from '../store'
 
 /**
  * COMPONENT
  */
 class TradeConfirmation extends Component {
-  componentDidMount() {
-    this.props.fetchUserData()
+  async componentDidMount() {
+    let stockSymbolsStr 
+      let {stocks, loadStockQuotes,fetchUserData} = this.props
+      if(stocks.length) {
+        //fetchUserData is for updating the users portfolio to reflect recent transactions 
+       await fetchUserData()
+       //stockSymbolsStr is passed in to loadStockQuotes to be used for a batch load of quotes from the IEX API
+       //That endpoint uses a comma delimited string of symbols, hence the .join(',')
+        stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
+        await loadStockQuotes(stockSymbolsStr)
+      }
   }
   render() {
     
@@ -51,18 +60,16 @@ class TradeConfirmation extends Component {
  */
 const mapStateToProps = state => {
   return {
-    transaction: state.trade
+    transaction: state.trade,
+    stocks: state.user.portfolios
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadTransactionData(id) {
-      dispatch(fetchTradedStockThunk(id))
-    }, 
-    fetchUserData() {
-      dispatch(me())
-    }
+    loadTransactionData: (id) => dispatch(fetchTradedStockThunk(id)), 
+    fetchUserData: () => dispatch(me()),
+    loadStockQuotes: (ownedStockSymbols) => dispatch(fetchPortfolioThunk(ownedStockSymbols)),
   }
 }
 
