@@ -8,22 +8,22 @@ import {fetchTradedStockThunk, me, fetchPortfolioThunk} from '../store'
 class TradeConfirmation extends Component {
   async componentDidMount() {
     let stockSymbolsStr 
-      let {stocks, loadStockQuotes,fetchUserData} = this.props
-      if(stocks.length) {
+      let {transaction, match, loadTransactionData, loadStockQuotes,fetchUserData} = this.props
+      //If for some reason a user saves this url and they go back here, we need to load the transaction onto the state.
+      //Otherwise just use what was saved from when the user clicked submit on the trade form. 
+      if (!transaction.id) {
+        await loadTransactionData(match.params.id)
+      } else {
         //fetchUserData is for updating the users portfolio to reflect recent transactions 
-       await fetchUserData()
-       //stockSymbolsStr is passed in to loadStockQuotes to be used for a batch load of quotes from the IEX API
-       //That endpoint uses a comma delimited string of symbols, hence the .join(',')
+        await fetchUserData()
+        //stockSymbolsStr is passed in to loadStockQuotes to be used for a batch load of quotes from the IEX API
+        //That endpoint uses a comma delimited string of symbols, hence the .join(',')
         stockSymbolsStr = this.props.stocks.map(currStock => currStock.stockSymbol).join(',')
         await loadStockQuotes(stockSymbolsStr)
       }
   }
   render() {
-    
-    //If for some reason a user saves this url and they go back here, we need to load the transaction onto the state.
-    //Otherwise just use what was saved from when the user clicked submit on the trade form. 
-    const {match, transaction, loadTransactionData} = this.props
-    if (!transaction.id) loadTransactionData(match.params.id)
+    const { transaction } = this.props
     return transaction.id ? (
       <div className="trade-confirmation-container">
         <h3>Transaction Confirmation</h3>

@@ -71,7 +71,7 @@ class Portfolio extends Component {
       const {sortOn, order} = this.state
       const sortOrder = order % 3 > 0 ?  order % 3 === 2 ? <FontAwesomeIcon icon="sort-up" /> : <FontAwesomeIcon icon="sort-down" /> : null
       let sortedStocks = []
-      if(latestStockData[stocks[0].stockSymbol]) {
+      if(stocks && stocks.length && latestStockData[stocks[0].stockSymbol]) {
         sortedStocks = stocks.map(currStock => {
         currStock.quote = this.props.latestStockData[currStock.stockSymbol].quote
         /*
