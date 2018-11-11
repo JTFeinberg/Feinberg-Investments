@@ -113,6 +113,7 @@ class Portfolio extends Component {
   }
 }
 
+
 const PortfolioHeaders = ({handleSort, sortOn, sortOrder}) => {
   return (
     <ul className="portfolio-header">
@@ -129,6 +130,9 @@ const PortfolioHeaders = ({handleSort, sortOn, sortOrder}) => {
   )
 }
 
+/**
+ * CHILD COMPONENTS
+ */
 const PortfolioStocks = ({idx, currStock}) => {
   let {currValue, totalChange, todaysChange, quote} = currStock
   let {latestPrice, open} = quote
