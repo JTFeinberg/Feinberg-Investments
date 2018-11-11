@@ -109,26 +109,7 @@ class Portfolio extends Component {
               let totalChangeColor = totalChange > 0 ? 'gain' : totalChange < 0 ? 'loss' : 'no-change'
             return (
               <Link to={`stock_info/${currStock.stockSymbol}`} key={currStock.id}>
-                <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} >
-                  <li name='stockSymbol' value={currStock.stockSymbol} >{currStock.stockSymbol}</li>
-                  <li className={todaysChangeColor}>${latestPrice.toFixed(2)}<br/>${todaysChange}</li>
-                  {/* 
-                  Change in value for this stock in the users portfolio for the day, and the percent change
-                  Percent change is (B - A)/A * 100
-                   */}
-                  <li className={todaysChangeColor}>${(todaysChange * currStock.numOfShares).toFixed(2)}<br/>{(todaysChange / open * 100).toFixed(2)}%</li>
-                  {/* 
-                  Change in value for this stock in the users portfolio since the stock was purchased, and the percent change
-                  Percent change is (B - A)/A * 100
-                   */}
-                  <li className={totalChangeColor}>${totalChange}<br/>{(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%</li>
-                  <li>{`$${currValue}`}</li>
-                  <li>{`${currStock.numOfShares} shares`}</li>
-                  {/* Cost basis is calculated as the users total invesment/# of shares owned */}
-                  <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>
-                  <li>{`$${Number(currStock.totalInvested).toFixed(2)}`}</li>
-                  <li>{`${currStock.createdAt.split('T')[0]}`}</li>
-                </ul>
+                <PortfolioStocks idx={idx} currStock={currStock} todaysChangeColor={todaysChangeColor} latestPrice={latestPrice} open={open} todaysChange={todaysChange} totalChangeColor={totalChangeColor} totalChange={totalChange} currValue={currValue} />
               </Link>
             )
           })}
@@ -158,7 +139,7 @@ const PortfolioHeaders = ({handleSort, sortOn, sortOrder}) => {
   )
 }
 
-const PortfolioStocks = ({idx, currStock, todaysChangeColor, latestPrice, todaysChange, totalChangeColor, totalChange, currValue}) => {
+const PortfolioStocks = ({idx, currStock, todaysChangeColor, latestPrice, open, todaysChange, totalChangeColor, totalChange, currValue}) => {
   return (
     <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} >
       <li name='stockSymbol' value={currStock.stockSymbol} >{currStock.stockSymbol}</li>
