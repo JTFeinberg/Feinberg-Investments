@@ -16,11 +16,7 @@ class TradeForm extends Component {
       isStockDirty: false
     }
   }
-  componentDidMount() {
-    //Make sure we have the most recent balance for the user
-    this.props.fetchUserData()
-  }
-
+  
   handleChange = async ({target}) => {
     let {name, value} = target
     //By using the same values for the names of inputs as properties in the state,
