@@ -145,18 +145,44 @@ class Portfolio extends Component {
 const PortfolioHeaders = ({handleSort, sortOn, sortOrder}) => {
   return (
     <ul className="portfolio-header">
-    <li onClick={() => handleSort("stockSymbol")}>Stock Symbol <span hidden={sortOn !== "stockSymbol"}>{sortOrder}</span></li>
-    <li onClick={() => handleSort("latestPrice")}>Latest Price <span hidden={sortOn !== "latestPrice"}>{sortOrder}</span></li>
-    <li onClick={() => handleSort("todaysChange")}>Today's Gain/Loss <span hidden={sortOn !== "todaysChange"}>{sortOrder}</span></li>
-    <li onClick={() => handleSort("totalChange")}>Total Gain/Loss <span hidden={sortOn !== "totalChange"}>{sortOrder}</span></li>
-    <li onClick={() => handleSort("currValue")}>Current Value <span hidden={sortOn !== "currValue"}>{sortOrder}</span></li>
-    <li onClick={() => handleSort("numOfShares")}>Quantity <span hidden={sortOn !== "numOfShares"}>{sortOrder}</span></li>
-    <li onClick={() => handleSort("costBasis")}>Cost Basis <span hidden={sortOn !== "costBasis"}>{sortOrder}</span></li>
-    <li onClick={() => handleSort("totalInvested")}>Total Invested <span hidden={sortOn !== "totalInvested"}>{sortOrder}</span></li>
-    <li onClick={() => handleSort("createdAt")}>Date of Purchase <span hidden={sortOn !== "createdAt"}>{sortOrder}</span></li>
-  </ul>
+      <li onClick={() => handleSort("stockSymbol")}>Stock Symbol <span hidden={sortOn !== "stockSymbol"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("latestPrice")}>Latest Price <span hidden={sortOn !== "latestPrice"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("todaysChange")}>Today's Gain/Loss <span hidden={sortOn !== "todaysChange"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("totalChange")}>Total Gain/Loss <span hidden={sortOn !== "totalChange"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("currValue")}>Current Value <span hidden={sortOn !== "currValue"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("numOfShares")}>Quantity <span hidden={sortOn !== "numOfShares"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("costBasis")}>Cost Basis <span hidden={sortOn !== "costBasis"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("totalInvested")}>Total Invested <span hidden={sortOn !== "totalInvested"}>{sortOrder}</span></li>
+      <li onClick={() => handleSort("createdAt")}>Date of Purchase <span hidden={sortOn !== "createdAt"}>{sortOrder}</span></li>
+    </ul>
   )
 }
+
+const PortfolioStocks = ({idx, currStock, todaysChangeColor, latestPrice, todaysChange, totalChangeColor, totalChange, currValue}) => {
+  return (
+    <ul className={`portfolio-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} >
+      <li name='stockSymbol' value={currStock.stockSymbol} >{currStock.stockSymbol}</li>
+      <li className={todaysChangeColor}>${latestPrice.toFixed(2)}<br/>${todaysChange}</li>
+      {/* 
+      Change in value for this stock in the users portfolio for the day, and the percent change
+      Percent change is (B - A)/A * 100
+        */}
+      <li className={todaysChangeColor}>${(todaysChange * currStock.numOfShares).toFixed(2)}<br/>{(todaysChange / open * 100).toFixed(2)}%</li>
+      {/* 
+      Change in value for this stock in the users portfolio since the stock was purchased, and the percent change
+      Percent change is (B - A)/A * 100
+        */}
+      <li className={totalChangeColor}>${totalChange}<br/>{(totalChange / Number(currStock.totalInvested) * 100).toFixed(2)}%</li>
+      <li>{`$${currValue}`}</li>
+      <li>{`${currStock.numOfShares} shares`}</li>
+      {/* Cost basis is calculated as the users total invesment/# of shares owned */}
+      <li>{`$${Number(currStock.costBasis).toFixed(2)}/share`}</li>
+      <li>{`$${Number(currStock.totalInvested).toFixed(2)}`}</li>
+      <li>{`${currStock.createdAt.split('T')[0]}`}</li>
+    </ul>
+  )
+}
+
 
 /**
  * CONTAINER
