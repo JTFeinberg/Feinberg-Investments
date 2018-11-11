@@ -6,7 +6,9 @@ import {fetchTradedStockThunk, me} from '../store'
  * COMPONENT
  */
 class TradeConfirmation extends Component {
-
+  componentDidMount() {
+    this.props.fetchUserData()
+  }
   render() {
     
     //If for some reason a user saves this url and they go back here, we need to load the transaction onto the state.
