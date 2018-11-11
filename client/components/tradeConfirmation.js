@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchTradedStockThunk} from '../store'
+import {fetchTradedStockThunk, me} from '../store'
 
 /**
  * COMPONENT
@@ -52,6 +52,9 @@ const mapDispatchToProps = dispatch => {
   return {
     loadTransactionData(id) {
       dispatch(fetchTradedStockThunk(id))
+    }, 
+    fetchUserData() {
+      dispatch(me())
     }
   }
 }
