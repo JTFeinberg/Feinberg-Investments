@@ -12,8 +12,18 @@ class Transactions extends Component {
     totalPages: null 
   }
 
+  onPageChanged = data => {
+    const { allTransactions } = this.props
+    const { currentPage, totalPages, pageLimit } = data;
+
+    const offset = (currentPage - 1) * pageLimit;
+    const currentTransactions = allTransactions.slice(offset, offset + pageLimit);
+
+    this.setState({ currentPage, currentTransactions, totalPages });
+  }
+
   render() {
-    const {transactions} = this.props
+    const {currentTransactions} = this.state
     //If the user has no stocks/has just signed up, show the alternate div encouraging them to begin trading!
     return transactions && transactions.length ? (
       <div className="transactions-container">
@@ -53,7 +63,7 @@ class Transactions extends Component {
  */
 const mapState = state => {
   return {
-    transactions: state.user.transactions
+    allTransactions: state.user.transactions
   }
 }
 
