@@ -1,19 +1,24 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {Pagination} from './'
 
 /**
  * COMPONENT
  */
 class Transactions extends Component {
   state = { 
+    allTransactions: [],
     currentTransactions: [],
     currentPage: null, 
     totalPages: null 
   }
+  componentDidMount() {
+    this.setState({ allTransactions: this.props.allTransactions });
+  }
 
   onPageChanged = data => {
-    const { allTransactions } = this.props
+    const { allTransactions } = this.state
     const { currentPage, totalPages, pageLimit } = data;
 
     const offset = (currentPage - 1) * pageLimit;
@@ -23,9 +28,11 @@ class Transactions extends Component {
   }
 
   render() {
-    const {currentTransactions} = this.state
+    // const { allTransactions } = this.props
+    const { allTransactions, currentTransactions, currentPage, totalPages } = this.state;
+    const totalTransactions = allTransactions.length
     //If the user has no stocks/has just signed up, show the alternate div encouraging them to begin trading!
-    return transactions && transactions.length ? (
+    return allTransactions && allTransactions.length ? (
       <div className="transactions-container">
         <h3>Transaction History</h3>
         <ul className="transactions-header">
@@ -36,7 +43,7 @@ class Transactions extends Component {
           <li>Toal Value</li>
           <li>Date of Purchase</li>
         </ul>
-        {transactions.map((currTrans, idx) => {
+        {currentTransactions.map((currTrans, idx) => {
           return (
             <ul className={`transactions-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currTrans.id} >
               <li>{currTrans.action}</li>
@@ -48,6 +55,8 @@ class Transactions extends Component {
             </ul>
           )
         })}
+        
+        <Pagination totalRecords={totalTransactions} pageLimit={10} pageNeighbours={1} onPageChanged={this.onPageChanged} />
       </div>
     ) : (
       <div className="no-data-container" >
