@@ -32,9 +32,14 @@ class Transactions extends Component {
     const { allTransactions, currentTransactions, currentPage, totalPages } = this.state;
     const totalTransactions = allTransactions.length
     //If the user has no stocks/has just signed up, show the alternate div encouraging them to begin trading!
-    return allTransactions && allTransactions.length ? (
-      <div className="transactions-container">
+    const headerClass = ['text-dark py-2 pr-4 m-0', currentPage ? 'border-gray border-right' : ''].join(' ').trim();
+    return allTransactions && allTransactions.length ? <div className="transactions-container">
         <h3>Transaction History</h3>
+        <h4 className={headerClass}>
+          <strong className="text-secondary">
+            {totalTransactions}
+          </strong> Transactions
+        </h4>
         <ul className="transactions-header">
           <li>Action</li>
           <li>Stock Symbol</li>
@@ -43,15 +48,31 @@ class Transactions extends Component {
           <li>Toal Value</li>
           <li>Date of Purchase</li>
         </ul>
-        {currentTransactions.map((currTrans, idx) => <TransactionRow idx={idx} currTrans={currTrans} key={currTrans.id}  />)}
-        <Pagination totalRecords={totalTransactions} pageLimit={10} pageNeighbours={1} onPageChanged={this.onPageChanged} />
-      </div>
-    ) : (
-      <div className="no-data-container" >
+        {currentTransactions.map((currTrans, idx) => (
+          <TransactionRow
+            idx={idx}
+            currTrans={currTrans}
+            key={currTrans.id}
+          />
+        ))}
+        <div className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
+          <div className="d-flex flex-row align-items-center">
+            {currentPage && <span className="current-page d-inline-block h-100 pl-4 text-secondary">
+                Page <span className="font-weight-bold">{currentPage}</span> / <span className="font-weight-bold">
+                  {totalPages}
+                </span>
+              </span>}
+          </div>
+          <div className="d-flex flex-row py-4 align-items-center">
+            <Pagination totalRecords={totalTransactions} pageLimit={10} pageNeighbours={1} onPageChanged={this.onPageChanged} />
+          </div>
+        </div>
+      </div> : <div className="no-data-container">
         <h3>You have no transaction histrory</h3>
-        <Link to="/user/trade_form"><h3>Click here to begin trading!</h3></Link>
+        <Link to="/user/trade_form">
+          <h3>Click here to begin trading!</h3>
+        </Link>
       </div>
-    )
   }
 }
 
