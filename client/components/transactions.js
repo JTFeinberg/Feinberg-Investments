@@ -49,12 +49,9 @@ class Transactions extends Component {
           <li>Date of Purchase</li>
         </ul>
         {currentTransactions.map((currTrans, idx) => (
-          <TransactionRow
-            idx={idx}
-            currTrans={currTrans}
-            key={currTrans.id}
-          />
-        ))}
+            <TransactionRow idx={idx} currTrans={currTrans} key={currTrans.id} />
+          ))
+        }
         <div className="w-100 px-4 py-5 d-flex flex-row flex-wrap align-items-center justify-content-between">
           <div className="d-flex flex-row align-items-center">
             {currentPage && <span className="current-page d-inline-block h-100 pl-4 text-secondary">
