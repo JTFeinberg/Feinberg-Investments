@@ -87,6 +87,26 @@ class Pagination extends Component {
       }
       return range(1, totalPages);
     }
+
+    componentDidMount() {
+        this.gotoPage(1);
+      }
+    
+      gotoPage = page => {
+        const { onPageChanged = f => f } = this.props;
+    
+        const currentPage = Math.max(0, Math.min(page, this.totalPages));
+    
+        const paginationData = {
+          currentPage,
+          totalPages: this.totalPages,
+          pageLimit: this.pageLimit,
+          totalRecords: this.totalRecords
+        };
+    
+        this.setState({ currentPage }, () => onPageChanged(paginationData));
+      }
+    
     render() {
 
         if (!this.totalRecords || this.totalPages === 1) return null;
