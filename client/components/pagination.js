@@ -106,6 +106,13 @@ class Pagination extends Component {
     
         this.setState({ currentPage }, () => onPageChanged(paginationData));
       }
+
+      handleClick = page => evt => {
+        evt.preventDefault();
+        this.gotoPage(page);
+      }
+    
+      
     
     render() {
 
