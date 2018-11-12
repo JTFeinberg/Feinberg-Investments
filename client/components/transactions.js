@@ -43,19 +43,7 @@ class Transactions extends Component {
           <li>Toal Value</li>
           <li>Date of Purchase</li>
         </ul>
-        {currentTransactions.map((currTrans, idx) => {
-          return (
-            <ul className={`transactions-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} key={currTrans.id} >
-              <li>{currTrans.action}</li>
-              <li>{currTrans.stockSymbol}</li>
-              <li>{`${currTrans.numOfShares} shares`}</li>
-              <li>{`$${currTrans.price}/share`}</li>
-              <li>{`$${Number(currTrans.value).toFixed(2)}`}</li>
-              <li>{`${currTrans.createdAt.split('T')[0]}`}</li>
-            </ul>
-          )
-        })}
-        
+        {currentTransactions.map((currTrans, idx) => <TransactionRow idx={idx} currTrans={currTrans} key={currTrans.id}  />)}
         <Pagination totalRecords={totalTransactions} pageLimit={10} pageNeighbours={1} onPageChanged={this.onPageChanged} />
       </div>
     ) : (
@@ -66,6 +54,17 @@ class Transactions extends Component {
     )
   }
 }
+
+const TransactionRow = ({idx, currTrans}) => (
+  <ul className={`transactions-row ${idx % 2 === 0 ? 'shade-alternate': '' }`} >
+    <li>{currTrans.action}</li>
+    <li>{currTrans.stockSymbol}</li>
+    <li>{`${currTrans.numOfShares} shares`}</li>
+    <li>{`$${currTrans.price}/share`}</li>
+    <li>{`$${Number(currTrans.value).toFixed(2)}`}</li>
+    <li>{`${currTrans.createdAt.split('T')[0]}`}</li>
+  </ul>
+)
 
 /**
  * CONTAINER
