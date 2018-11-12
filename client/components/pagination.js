@@ -111,7 +111,14 @@ class Pagination extends Component {
         evt.preventDefault();
         this.gotoPage(page);
       }
-    
+      handleMoveLeft = evt => {
+        evt.preventDefault();
+        this.gotoPage(this.state.currentPage - (this.pageNeighbours * 2) - 1);
+      }
+      handleMoveRight = evt => {
+        evt.preventDefault();
+        this.gotoPage(this.state.currentPage + (this.pageNeighbours * 2) + 1);
+      }
       
     
     render() {
