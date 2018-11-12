@@ -1,13 +1,32 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+const LEFT_PAGE = 'LEFT';
+const RIGHT_PAGE = 'RIGHT';
+
+/**
+ * Helper method for creating a range of numbers
+ * range(1, 5) => [1, 2, 3, 4, 5]
+ */
+const range = (from, to, step = 1) => {
+  let i = from;
+  const rangeOfNums = [];
+
+  while (i <= to) {
+    rangeOfNums.push(i);
+    i += step;
+  }
+
+  return rangeOfNums;
+}
+
 class Pagination extends Component {
 
   constructor(props) {
     super(props);
-    const { totalRecords = null, pageLimit = 30, pageNeighbours = 0 } = props;
+    const { totalRecords = null, pageLimit = 10, pageNeighbours = 0 } = props;
 
-    this.pageLimit = typeof pageLimit === 'number' ? pageLimit : 30;
+    this.pageLimit = typeof pageLimit === 'number' ? pageLimit : 10;
     this.totalRecords = typeof totalRecords === 'number' ? totalRecords : 0;
 
     // pageNeighbours can be: 0, 1 or 2
