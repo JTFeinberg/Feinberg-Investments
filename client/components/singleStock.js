@@ -17,6 +17,13 @@ class SingleStock extends Component {
     this.props.resetStockState()
   }
 
+  componentDidUpdate(prevProps){
+    const {match, loadStockData} = this.props
+    if(prevProps.match.params.stockSymbol !== match.params.stockSymbol) {
+      loadStockData(match.params.stockSymbol)
+    }
+  }
+
   render() {
     const {stock, match, loadStockData} = this.props
     const {quote} = stock
@@ -26,14 +33,37 @@ class SingleStock extends Component {
       //Otherwise show requested stock data
       stock.quote.symbol === match.params.stockSymbol.toUpperCase() ? (
         <div className="single-stock-container">
-          <div className="stock-header">
-            <h1>{`${quote.companyName} (${quote.symbol})`}</h1>
-            <div className="stock-header-sector">
-              <span>Sector:</span>
-              <span id="sector">{quote.sector}</span>
-            </div>
-          </div>
-          <div className="single-stock-row">
+          <SingleStockHeader quote={quote} />
+          <SingleStockData quote={quote} loadStockData={loadStockData} />
+        </div>
+      ) : (
+        <div className="no-data-container">LOADING...</div>
+      )
+    ) : (
+      <div className="no-data-container">
+        <h1>Invalid Stock Symbol</h1>
+        <h1>Please Try Again</h1>
+      </div>
+    )
+  }
+}
+/* Child Components
+****************************/
+const SingleStockHeader = ({quote}) => {
+  return (
+    <div className="stock-header">
+      <h1>{`${quote.companyName} (${quote.symbol})`}</h1>
+      <div className="stock-header-sector">
+        <span>Sector:</span>
+        <span id="sector">{quote.sector}</span>
+      </div>
+    </div>
+  )
+}
+
+const SingleStockData = ({quote, loadStockData}) => {
+  return (
+    <div className="single-stock-row">
           <ul className="stock-left">
             <li>
               <p id="latest-price">${quote.latestPrice.toFixed(2)}</p>
@@ -82,17 +112,7 @@ class SingleStock extends Component {
             </li>
           </ul>
           </div>
-        </div>
-      ) : (
-        <div className="no-data-container">LOADING...</div>
-      )
-    ) : (
-      <div className="no-data-container">
-        <h1>Invalid Stock Symbol</h1>
-        <h1>Please Try Again</h1>
-      </div>
-    )
-  }
+  )
 }
 
 /**
