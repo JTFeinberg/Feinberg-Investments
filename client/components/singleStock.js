@@ -34,7 +34,36 @@ class SingleStock extends Component {
       stock.quote.symbol === match.params.stockSymbol.toUpperCase() ? (
         <div className="single-stock-container">
           <SingleStockHeader quote={quote} />
-          <div className="single-stock-row">
+          <SingleStockData quote={quote} loadStockData={loadStockData} />
+        </div>
+      ) : (
+        <div className="no-data-container">LOADING...</div>
+      )
+    ) : (
+      <div className="no-data-container">
+        <h1>Invalid Stock Symbol</h1>
+        <h1>Please Try Again</h1>
+      </div>
+    )
+  }
+}
+/* Child Components
+****************************/
+const SingleStockHeader = ({quote}) => {
+  return (
+    <div className="stock-header">
+      <h1>{`${quote.companyName} (${quote.symbol})`}</h1>
+      <div className="stock-header-sector">
+        <span>Sector:</span>
+        <span id="sector">{quote.sector}</span>
+      </div>
+    </div>
+  )
+}
+
+const SingleStockData = ({quote, loadStockData}) => {
+  return (
+    <div className="single-stock-row">
           <ul className="stock-left">
             <li>
               <p id="latest-price">${quote.latestPrice.toFixed(2)}</p>
@@ -83,28 +112,6 @@ class SingleStock extends Component {
             </li>
           </ul>
           </div>
-        </div>
-      ) : (
-        <div className="no-data-container">LOADING...</div>
-      )
-    ) : (
-      <div className="no-data-container">
-        <h1>Invalid Stock Symbol</h1>
-        <h1>Please Try Again</h1>
-      </div>
-    )
-  }
-}
-
-const SingleStockHeader = ({quote}) => {
-  return (
-    <div className="stock-header">
-      <h1>{`${quote.companyName} (${quote.symbol})`}</h1>
-      <div className="stock-header-sector">
-        <span>Sector:</span>
-        <span id="sector">{quote.sector}</span>
-      </div>
-    </div>
   )
 }
 
