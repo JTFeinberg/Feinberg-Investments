@@ -42,7 +42,7 @@ render() {
           {filteredStocks.map(symbol => { 
             const companyName = stocksMap.get(symbol)
             const indexOfSymbol = symbol.indexOf(stockSymbol)
-            const indexOfCompany = companyName.indexOf(stockSymbol)
+            const indexOfCompany = companyName.toUpperCase().indexOf(stockSymbol)
             return (
               <Link key={symbol} to={`/stock_info/${symbol}`}>
                 <li className="search-bar-list-item" onClick={() => this.handleClick(symbol)}>
@@ -50,11 +50,10 @@ render() {
                     <span className="list-symbol">{symbol.slice(0, indexOfSymbol)}<strong>{stockSymbol}</strong>{symbol.slice(indexOfSymbol + stockSymbol.length)}</span> 
                     :
                     <span className="list-symbol">{symbol}</span>}
-                  {/* {indexOfCompany > -1 ? 
-                    <span className="list-symbol">{symbol.slice(0, indexOfCompany)}<strong>{stockSymbol}</strong>{symbol.slice(indexOfCompany + stockSymbol.length)}</span> 
+                  {indexOfCompany > -1 ? 
+                    <span className="list-name">{companyName.slice(0, indexOfCompany)}<strong>{stockSymbol}</strong>{companyName.slice(indexOfCompany + stockSymbol.length)}</span> 
                     :
-                    <span className="list-symbol">{symbol}</span>} */}
-                  <span className="list-name">{stocksMap.get(symbol)}</span>
+                    <span className="list-name">{companyName}</span>}
                 </li>
               </Link>
             )
