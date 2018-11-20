@@ -47,11 +47,15 @@ render() {
               <Link key={symbol} to={`/stock_info/${symbol}`}>
                 <li className="search-bar-list-item" onClick={() => this.handleClick(symbol)}>
                   {indexOfSymbol > -1 ? 
-                    <span className="list-symbol">{symbol.slice(0, indexOfSymbol)}<strong>{stockSymbol}</strong>{symbol.slice(indexOfSymbol + stockSymbol.length)}</span> 
+                    <span className="list-symbol">{symbol.slice(0, indexOfSymbol)}
+                      <strong>{stockSymbol}</strong>
+                    {symbol.slice(indexOfSymbol + stockSymbol.length)}</span> 
                     :
                     <span className="list-symbol">{symbol}</span>}
                   {indexOfCompany > -1 ? 
-                    <span className="list-name">{companyName.slice(0, indexOfCompany)}<strong>{stockSymbol}</strong>{companyName.slice(indexOfCompany + stockSymbol.length)}</span> 
+                    <span className="list-name">{companyName.slice(0, indexOfCompany)}
+                      <strong>{companyName.slice(indexOfCompany, stockSymbol.length)}</strong>
+                    {companyName.slice(indexOfCompany + stockSymbol.length)}</span> 
                     :
                     <span className="list-name">{companyName}</span>}
                 </li>
