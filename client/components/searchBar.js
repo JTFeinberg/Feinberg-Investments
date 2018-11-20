@@ -40,12 +40,13 @@ render() {
         (<ul id="search-bar-list">
           <li className="list-header">Quotes</li>
           {filteredStocks.map(symbol => { 
-            const indexOf = symbol.indexOf(stockSymbol)
+            const indexOfSymbol = symbol.indexOf(stockSymbol)
+            const indexOfCompany = stocksMap.get(symbol).indexOf(stockSymbol)
             return (
               <Link key={symbol} to={`/stock_info/${symbol}`}>
                 <li className="search-bar-list-item" onClick={() => this.handleClick(symbol)}>
-                  {indexOf > -1 ? 
-                    <span className="list-symbol">{symbol.slice(0, indexOf)}<strong>{stockSymbol}</strong>{symbol.slice(indexOf + stockSymbol.length)}</span> 
+                  {indexOfSymbol > -1 ? 
+                    <span className="list-symbol">{symbol.slice(0, indexOfSymbol)}<strong>{stockSymbol}</strong>{symbol.slice(indexOfSymbol + stockSymbol.length)}</span> 
                     :
                     <span className="list-symbol">{symbol}</span>}
                   <span className="list-name">{stocksMap.get(symbol)}</span>
