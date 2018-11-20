@@ -17,6 +17,13 @@ class SingleStock extends Component {
     this.props.resetStockState()
   }
 
+  componentDidUpdate(prevProps){
+    const {match, loadStockData} = this.props
+    if(prevProps.match.params.stockSymbol !== match.params.stockSymbol) {
+      loadStockData(match.params.stockSymbol)
+    }
+  }
+
   render() {
     const {stock, match, loadStockData} = this.props
     const {quote} = stock
