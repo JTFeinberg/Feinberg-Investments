@@ -33,13 +33,7 @@ class SingleStock extends Component {
       //Otherwise show requested stock data
       stock.quote.symbol === match.params.stockSymbol.toUpperCase() ? (
         <div className="single-stock-container">
-          <div className="stock-header">
-            <h1>{`${quote.companyName} (${quote.symbol})`}</h1>
-            <div className="stock-header-sector">
-              <span>Sector:</span>
-              <span id="sector">{quote.sector}</span>
-            </div>
-          </div>
+          <SingleStockHeader quote={quote} />
           <div className="single-stock-row">
           <ul className="stock-left">
             <li>
@@ -100,6 +94,18 @@ class SingleStock extends Component {
       </div>
     )
   }
+}
+
+const SingleStockHeader = ({quote}) => {
+  return (
+    <div className="stock-header">
+      <h1>{`${quote.companyName} (${quote.symbol})`}</h1>
+      <div className="stock-header-sector">
+        <span>Sector:</span>
+        <span id="sector">{quote.sector}</span>
+      </div>
+    </div>
+  )
 }
 
 /**
