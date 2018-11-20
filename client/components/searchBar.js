@@ -26,8 +26,8 @@ class SearchBar extends Component {
 render() {
     const {stockSymbol} = this.state
     const {stocksMap, symbolsArr} = this.props
-    const filteredStocks = symbolsArr.filter(symbol => symbol.match(stockSymbol))
     const regex = new RegExp(stockSymbol, 'gi')
+    const filteredStocks = symbolsArr.filter(symbol => symbol.match(stockSymbol) || stocksMap.get(symbol).match(regex))
     return (
       <div>
         <form id="search-bar" >
