@@ -28,7 +28,7 @@ render() {
     const {stocksMap, symbolsArr} = this.props
     const regex = new RegExp(searchString, 'gi')
     //Match stocks on either their symbol or the company name
-    const filteredStocks = symbolsArr.filter(symbol => symbol.match(searchString) || stocksMap.get(symbol).match(regex))
+    const filteredStocks = symbolsArr.filter(symbol => symbol.match(regex) || stocksMap.get(symbol).match(regex))
     return (
       <div>
         <form id="search-bar" >
@@ -58,7 +58,7 @@ render() {
                 {/* If the search input is found in the company name, then make it bold. Otherewise just render the name. */}
                   {indexOfCompany > -1 ? 
                     <span className="list-name">{companyName.slice(0, indexOfCompany)}
-                      <strong>{companyName.slice(indexOfCompany, searchString.length)}</strong>
+                      <strong>{companyName.slice(indexOfCompany, indexOfCompany + searchString.length)}</strong>
                     {companyName.slice(indexOfCompany + searchString.length)}</span> 
                     :
                     <span className="list-name">{companyName}</span>}
