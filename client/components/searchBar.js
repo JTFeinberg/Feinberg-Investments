@@ -31,7 +31,7 @@ render() {
     return (
       <div>
         <form id="search-bar" >
-            <input name="stockSymbol" value={stockSymbol} onChange={this.handleChange} maxLength="6"
+            <input name="stockSymbol" value={stockSymbol} onChange={this.handleChange}
               placeholder="Search Stock Symbols"/>
               {/* Go to the singleStock component for the searched stock symbol when the user clicks search button */}
             <Link to={`/stock_info/${stockSymbol}`}><button id="search-bar-btn" onClick={() => this.handleClick(stockSymbol)}/></Link>
@@ -44,7 +44,10 @@ render() {
             return (
               <Link key={symbol} to={`/stock_info/${symbol}`}>
                 <li className="search-bar-list-item" onClick={() => this.handleClick(symbol)}>
-                  <span className="list-symbol">{symbol.slice(0, indexOf)}<strong>{stockSymbol}</strong>{symbol.slice(indexOf + stockSymbol.length)}</span>
+                  {indexOf > -1 ? 
+                    <span className="list-symbol">{symbol.slice(0, indexOf)}<strong>{stockSymbol}</strong>{symbol.slice(indexOf + stockSymbol.length)}</span> 
+                    :
+                    <span className="list-symbol">{symbol}</span>}
                   <span className="list-name">{stocksMap.get(symbol)}</span>
                 </li>
               </Link>
