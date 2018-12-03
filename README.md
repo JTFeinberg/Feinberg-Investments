@@ -9,7 +9,7 @@ In order to setup, follow these steps:
 * Clone the app by running this command:
 
 ```
-git clone https://github.com/JTFeinberg/TTP-FS-20180728.git
+https://github.com/JTFeinberg/Feinberg-Investments.git
 ```
 
 * Run `npm install` to install all dependencies.
